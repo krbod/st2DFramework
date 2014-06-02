@@ -84,52 +84,8 @@ package com.stintern.st2D.display.sprite
                     //다음 프레임이 존재할 경우
                     if(playFrame != null)
                     {
-                        if(isPlaying)
-                        {
-                            //이미지가 뒤집힌 상태이면
-                            if(vertexData[3] > vertexData[3+9])
-                            {
-                                //이전 프레임이 없는, 애니메이션을 처음 실행할 경우
-                                if(preFrame == null)
-                                {
-                                    //frameX,Y로 이동
-                                    position.x += - playFrame.width/2  - playFrame.frameX + playFrame.frameWidth/2;
-                                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
-                                }
-                                else
-                                {
-                                    //이전 프레임에서 했던 frameX,Y로의 이동 제거
-                                    position.x += + preFrame.width/2  + preFrame.frameX - preFrame.frameWidth/2;
-                                    position.y += + preFrame.height/2 + preFrame.frameY - preFrame.frameHeight/2;
-                                    
-                                    //frameX,Y로 이동
-                                    position.x += - playFrame.width/2  - playFrame.frameX + playFrame.frameWidth/2;
-                                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
-                                }
-                            }
-                            //이미지가 뒤집히지 않은, 원래의 상태일 경우
-                            else
-                            {
-                                //이전 프레임이 없는, 애니메이션을 처음 실행할 경우
-                                if(preFrame == null)
-                                {
-                                    position.x += + playFrame.width/2  + playFrame.frameX - playFrame.frameWidth/2;
-                                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
-                                }
-                                else
-                                {
-                                    //이전 프레임에서 했던 frameX,Y로의 이동 제거
-                                    position.x += - preFrame.width/2  - preFrame.frameX + preFrame.frameWidth/2;
-                                    position.y += + preFrame.height/2 + preFrame.frameY - preFrame.frameHeight/2;
-                                    
-                                    //frameX,Y로 이동
-                                    position.x += + playFrame.width/2  + playFrame.frameX - playFrame.frameWidth/2;
-                                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
-                                }
-                            }
-                            
-                            preFrame = playFrame;
-                        }
+                        //이미지의 원래 프레임에서의 위치를 고려하여 위치를 변경시킴
+                        if(isPlaying) framePosSetting(playFrame);
                         
                         //uv좌표 변경하는 방식
                         frame.width = playFrame.width;
@@ -143,6 +99,57 @@ package com.stintern.st2D.display.sprite
             }
             
             super.update();
+        }
+        
+        /**
+         * 이미지의 원래 프레임상에서의 위치를 고려하여 화면상에서의 위치를 설정해주는 함수
+         * @param playFrame 현재 재생중인 애니메이션의 프레임
+         */
+        private function framePosSetting(playFrame:AnimationFrame):void
+        {
+            //이미지가 뒤집힌 상태이면
+            if(vertexData[3] > vertexData[3+9])
+            {
+                //이전 프레임이 없는, 애니메이션을 처음 실행할 경우
+                if(preFrame == null)
+                {
+                    //frameX,Y로 이동
+                    position.x += - playFrame.width/2  - playFrame.frameX + playFrame.frameWidth/2;
+                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
+                }
+                else
+                {
+                    //이전 프레임에서 했던 frameX,Y로의 이동 제거
+                    position.x += + preFrame.width/2  + preFrame.frameX - preFrame.frameWidth/2;
+                    position.y += + preFrame.height/2 + preFrame.frameY - preFrame.frameHeight/2;
+                    
+                    //frameX,Y로 이동
+                    position.x += - playFrame.width/2  - playFrame.frameX + playFrame.frameWidth/2;
+                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
+                }
+            }
+                //이미지가 뒤집히지 않은, 원래의 상태일 경우
+            else
+            {
+                //이전 프레임이 없는, 애니메이션을 처음 실행할 경우
+                if(preFrame == null)
+                {
+                    position.x += + playFrame.width/2  + playFrame.frameX - playFrame.frameWidth/2;
+                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
+                }
+                else
+                {
+                    //이전 프레임에서 했던 frameX,Y로의 이동 제거
+                    position.x += - preFrame.width/2  - preFrame.frameX + preFrame.frameWidth/2;
+                    position.y += + preFrame.height/2 + preFrame.frameY - preFrame.frameHeight/2;
+                    
+                    //frameX,Y로 이동
+                    position.x += + playFrame.width/2  + playFrame.frameX - playFrame.frameWidth/2;
+                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
+                }
+            }
+            
+            preFrame = playFrame;
         }
         
         /**
