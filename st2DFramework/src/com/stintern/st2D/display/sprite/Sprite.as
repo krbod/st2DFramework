@@ -16,10 +16,6 @@ package com.stintern.st2D.display.sprite
     
     public class Sprite extends DisplayObjectContainer 
     {
-        private var _scale:Vector2D = new Vector2D(1.0, 1.0);
-        private var _rotateAxis:Vector3D = new Vector3D(0.0, 0.0, 0.0);
-        private var _rotateDegree:Number = 0;
-        
         private var _frame:Rectangle = new Rectangle(0, 0, 0, 0);
         private var _depth:Number = 0;
 
@@ -40,15 +36,6 @@ package com.stintern.st2D.display.sprite
         public function Sprite()
         {
             super();
-            
-            indexData.push( 0, 1, 2, 0, 2, 3 );
-            vertexData.push(
-                    //X, Y, Z,              U, V,            R,  G, B, A
-                    -0.5, 0.5,  0.5,      0,  0,              1.0,1.0,1.0,1.0,
-                    0.5,  0.5,  0.5,      1,  0,             1.0,1.0,1.0,1.0,
-                    0.5,  -0.5, 0.5,      1,  1,             1.0,1.0,1.0,1.0,
-                    -0.5, -0.5, 0.5,      0,  1,             1.0,1.0,1.0,1.0
-                );
             
             _isMoving = false;
             _increaseX = 0;
@@ -231,7 +218,7 @@ package com.stintern.st2D.display.sprite
             _modelMatrix.appendScale(_frame.width * scale.x, _frame.height * scale.y, 1);
             
             // rotate
-            _modelMatrix.appendRotation( _rotateDegree, _rotateAxis );
+            _modelMatrix.appendRotation( rotateDegree, rotateAxis );
             
             // translate
             _modelMatrix.appendTranslation(position.x, position.y, _depth);
@@ -302,8 +289,8 @@ package com.stintern.st2D.display.sprite
          */
         public function setScale(scale:Vector2D):void
         {
-            _scale.x = scale.x;
-            _scale.y = scale.y;
+            this.scale.x = scale.x;
+            this.scale.y = scale.y;
             
             scale = null;
         }
@@ -325,10 +312,10 @@ package com.stintern.st2D.display.sprite
          */
         public function setRotate(degree:Number, axis:Vector3D):void
         {
-            _rotateDegree = degree;
-            _rotateAxis.x = axis.x;
-            _rotateAxis.y = axis.y;
-            _rotateAxis.z = axis.z;
+            rotateDegree = degree;
+            rotateAxis.x = axis.x;
+            rotateAxis.y = axis.y;
+            rotateAxis.z = axis.z;
             
             axis = null;
         }
@@ -370,6 +357,21 @@ package com.stintern.st2D.display.sprite
             }
         }
         
+        /**
+         * 스프라이트 이미지와 XML을 통해 읽은 스프라이트의 경우에는 XML 에 스프라이트의 위치 정보가 포함되어 있습니다.
+         * 이 정보를 통해서 스프라이트의 위치를 입력합니다.  
+         * @param batchSprite 스프라이트를 생성할 때 사용한 배치스프라이트
+         */
+        public function setDefaultPosition(batchSprite:BatchSprite, imageName:String):void
+        {
+            setTranslation( 
+                new Vector2D(
+                    AnimationData.instance.animationData[batchSprite.path]["frame"][imageName].left,
+                    AnimationData.instance.animationData[batchSprite.path]["frame"][imageName].top
+                ));
+        }
+
+        
         
         /**
          * 사용한 자원을 해제합니다. 
@@ -391,11 +393,11 @@ package com.stintern.st2D.display.sprite
             }
             
             _modelMatrix = null;
-            _rotateAxis = null;
+            rotateAxis = null;
             
-            _scale = null;
+            scale = null;
             position = null;
-            _rotateAxis = null;
+            rotateAxis = null;
             
             position = null;
         }
@@ -535,7 +537,8 @@ package com.stintern.st2D.display.sprite
         
         public function get rect():Rectangle
         {
-            return new Rectangle(position.x - getContentWidth()*0.5, position.y - getContentHeight()*0.5, getContentWidth(), getContentHeight()); 
+            //Anchor Point 에 따라서 변환된 VertexData Left, Top 정보를 이용해서 현재 스프라이트 객체의 Rectangle 정보를 반환함
+            return new Rectangle(position.x + getContentWidth()*vertexData[0], position.y - getContentHeight()*(1-vertexData[1]), getContentWidth(), getContentHeight()); 
         }
         
         public function get numTriangle():int
@@ -561,11 +564,6 @@ package com.stintern.st2D.display.sprite
             _depth = depth;
         }
 
-        
-        public function get scale():Vector2D
-        {
-            return _scale;
-        }
 
         public function get frame():Rectangle
         {

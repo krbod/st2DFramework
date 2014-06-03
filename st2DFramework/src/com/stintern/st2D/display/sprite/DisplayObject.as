@@ -8,12 +8,16 @@ package com.stintern.st2D.display.sprite
     import flash.display3D.VertexBuffer3D;
     import flash.display3D.textures.Texture;
     import flash.geom.Matrix;
+    import flash.geom.Vector3D;
 
     public class DisplayObject extends Base
     {
         private var _path:String;
         
         private var _position:Vector2D = new Vector2D(0.0, 0.0);
+        private var _scale:Vector2D = new Vector2D(1.0, 1.0);
+        private var _rotateAxis:Vector3D = new Vector3D(0.0, 0.0, 0.0);
+        private var _rotateDegree:Number = 0;
         
         private var _texture:Texture = null;
         private var _textureData:Bitmap = null;
@@ -31,6 +35,30 @@ package com.stintern.st2D.display.sprite
         public function DisplayObject()
         {
             super();
+            
+            _indexData.push( 0, 1, 2, 0, 2, 3 );
+            _vertexData.push(
+                //X, Y, Z,              U, V,            R,  G, B, A
+                -0.5, 0.5,  0.5,      0,  0,              1.0,1.0,1.0,1.0,
+                0.5,  0.5,  0.5,      1,  0,             1.0,1.0,1.0,1.0,
+                0.5,  -0.5, 0.5,      1,  1,             1.0,1.0,1.0,1.0,
+                -0.5, -0.5, 0.5,      0,  1,             1.0,1.0,1.0,1.0
+            );
+        }
+        
+        public function setAnchorPoint(x:Number, y:Number):void
+        {
+            vertexData[0] = 0 - x;
+            vertexData[1] = 1 - y;
+            
+            vertexData[0 + DATAS_PER_VERTEX * 1 ]  = 1 - x;
+            vertexData[1 + DATAS_PER_VERTEX * 1 ]  = 1 - y;
+            
+            vertexData[0 + DATAS_PER_VERTEX * 2 ]  = 1 - x;
+            vertexData[1 + DATAS_PER_VERTEX * 2 ]  = 0 - y;
+            
+            vertexData[0 + DATAS_PER_VERTEX * 3 ]  = 0 - x;
+            vertexData[1 + DATAS_PER_VERTEX * 3 ]  = 0 - y;
         }
         
         /**
@@ -169,7 +197,39 @@ package com.stintern.st2D.display.sprite
         }
         public function set position(position:Vector2D):void
         {
-            _position = position;
+            _position.x = position.x;
+            _position.y = position.y;
+            
+            position = null;
         }
+        
+        
+        public function get scale():Vector2D
+        {
+            return _scale;
+        }
+        public function set scale(scale:Vector2D):void
+        {
+            _scale = scale;
+        }
+        
+        public function get rotateAxis():Vector3D
+        {
+            return _rotateAxis;
+        }
+        public function set rotateAxis(rotateAxis:Vector3D):void
+        {
+            _rotateAxis = rotateAxis;
+        }
+        
+        public function get rotateDegree():Number
+        {
+            return _rotateDegree;
+        }
+        public function set rotateDegree(rotateDegree:Number):void
+        {
+            _rotateDegree = rotateDegree;
+        }
+        
     }
 }
