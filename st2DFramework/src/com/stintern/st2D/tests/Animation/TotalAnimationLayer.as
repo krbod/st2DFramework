@@ -95,7 +95,7 @@ package com.stintern.st2D.tests.Animation
                                     {
                                         _effect[k].position.x = (_gameObject[i]._sprite.position.x + _gameObject[j]._sprite.position.x)/2;
                                         _effect[k].position.y = (_gameObject[i]._sprite.position.y + _gameObject[j]._sprite.position.y)/2;
-                                        _effect[k].setPlayAnimation("fire");
+                                        _effect[k].setPlayAnimation("meteo");
                                         _effect[k].isVisible = true;
                                         _effect[k].playAnimation();
                                         break;
@@ -160,7 +160,7 @@ package com.stintern.st2D.tests.Animation
             for(i=0; i< 20; i++)
             {
                 _effect.push(new SpriteAnimation());
-                _effect[i].createAnimationSpriteWithBatchSprite(_batchSprite, "fire");
+                _effect[i].createAnimationSpriteWithBatchSprite(_batchSprite, "meteo");
                 _effect[i].isVisible = false;
                 _batchSprite.addSprite(_effect[i]);
             }

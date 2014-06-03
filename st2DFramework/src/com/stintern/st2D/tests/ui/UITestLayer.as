@@ -6,12 +6,14 @@ package com.stintern.st2D.tests.ui
     import com.stintern.st2D.display.sprite.Sprite;
     import com.stintern.st2D.display.sprite.SpriteAnimation;
     import com.stintern.st2D.ui.Button;
+    import com.stintern.st2D.utils.UILoader;
     
     import flash.events.MouseEvent;
     
     public class UITestLayer extends Layer
     {
-        private var _batchSprite:BatchSprite;
+        private var _uiLoader:UILoader = new UILoader(); 
+        
         private var _sprite:SpriteAnimation = new SpriteAnimation;
         
         public function UITestLayer()
@@ -27,24 +29,21 @@ package com.stintern.st2D.tests.ui
         
         private function init():void
         {
-            _batchSprite = new BatchSprite();
-            _batchSprite.createBatchSpriteWithPath("res/atlas.png", "res/atlas.xml", loadComplete);
-            addBatchSprite(_batchSprite);
+            _uiLoader.init(this, "res/atlas.png", "res/atlas.xml", loadComplete);
             
             StageContext.instance.stage.addEventListener(MouseEvent.CLICK, onTouch);
         }
         
         private function loadComplete():void
         {
-            var bkgSprite:Sprite = new Sprite();
-            bkgSprite.createSpriteWithBatchSprite(_batchSprite, "BACKGROUND_1");
-            bkgSprite.setDefaultPosition(_batchSprite, "BACKGROUND_1");
+            var bkgSprite:Sprite = _uiLoader.loadSprite("BACKGROUND_1");
             bkgSprite.setAnchorPoint(0, 0);
-            _batchSprite.addSprite(bkgSprite);
             
-            var button:Button = new Button();
-            button.createButton(_batchSprite, "START_1", "START_CLICKED_1", onStartClick);
+            var button:Button = _uiLoader.loadButton("START_1", "START_CLICKED_1", onStartClick);
             button.setAnchorPoint(0, 1);
+            
+            var animation:SpriteAnimation = _uiLoader.loadAnimation("MOLE");
+            animation.playAnimation();
         }
         
         private function onStartClick():void

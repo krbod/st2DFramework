@@ -5,7 +5,6 @@ package com.stintern.st2D.tests
     import com.stintern.st2D.display.SceneManager;
     import com.stintern.st2D.display.sprite.Sprite;
     import com.stintern.st2D.tests.batch.BatchSpriteLayer;
-    import com.stintern.st2D.utils.Vector2D;
     
     import flash.events.MouseEvent;
     

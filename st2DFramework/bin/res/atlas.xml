@@ -1,0 +1,26 @@
+<atlas>
+  <atlasItem name="BACKGROUND_1.png" x="2" y="2" width="1024" height="768" left="-1" top="0" pivotX="-1" pivotY="0" frameWidth="1024" frameHeight="768" kind="1"/>
+  <atlasItem name="MOLE_1.png" x="1573" y="480" width="264" height="146" left="29" top="597.6" pivotX="29" pivotY="597.6" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_2.png" x="1573" y="628" width="260" height="140" left="33.4" top="594.4" pivotX="33.4" pivotY="594.4" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_3.png" x="1573" y="329" width="260" height="150" left="42.4" top="591.2" pivotX="42.4" pivotY="591.2" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_4.png" x="1573" y="172" width="252" height="156" left="47.6" top="588.2" pivotX="47.6" pivotY="588.2" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_5.png" x="2" y="1238" width="230" height="158" left="54.4" top="590.6" pivotX="54.4" pivotY="590.6" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_6.png" x="2" y="1560" width="222" height="160" left="60.4" top="593.2" pivotX="60.4" pivotY="593.2" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_7.png" x="2" y="1073" width="222" height="164" left="54.6" top="590.2" pivotX="54.6" pivotY="590.2" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_8.png" x="1320" y="336" width="244" height="162" left="47.6" top="587.2" pivotX="47.6" pivotY="587.2" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_9.png" x="1320" y="172" width="252" height="162" left="44.2" top="589" pivotX="44.2" pivotY="589" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_10.png" x="1028" y="155" width="274" height="158" left="37.2" top="590.8" pivotX="37.2" pivotY="590.8" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_11.png" x="1028" y="2" width="290" height="152" left="29.6" top="592.6" pivotX="29.6" pivotY="592.6" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_12.png" x="1568" y="2" width="294" height="142" left="26" top="594.4" pivotX="26" pivotY="594.4" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_13.png" x="1028" y="315" width="274" height="158" left="31.2" top="596.2" pivotX="31.2" pivotY="596.2" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_14.png" x="1028" y="474" width="258" height="166" left="43.8" top="595.4" pivotX="43.8" pivotY="595.4" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_15.png" x="1320" y="2" width="246" height="168" left="48.8" top="594.6" pivotX="48.8" pivotY="594.6" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_16.png" x="1320" y="499" width="226" height="174" left="59.4" top="593.6" pivotX="59.4" pivotY="593.6" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_17.png" x="2" y="1397" width="222" height="162" left="53.2" top="592.8" pivotX="53.2" pivotY="592.8" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_18.png" x="1827" y="172" width="216" height="154" left="47.2" top="594.2" pivotX="47.2" pivotY="594.2" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_19.png" x="2" y="920" width="242" height="152" left="35" top="595.8" pivotX="35" pivotY="595.8" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="MOLE_20.png" x="2" y="772" width="260" height="146" left="31.6" top="597.6" pivotX="31.6" pivotY="597.6" frameWidth="1024" frameHeight="768" kind="0"/>
+  <atlasItem name="TEST_1.png" x="1230" y="641" width="88" height="30" left="52" top="71.4" pivotX="52" pivotY="71.4" frameWidth="1024" frameHeight="768" kind="3"/>
+  <atlasItem name="START_1.png" x="1028" y="641" width="200" height="100" left="414.4" top="452.4" pivotX="414.4" pivotY="452.4" frameWidth="1024" frameHeight="768" kind="2"/>
+  <atlasItem name="START_CLICKED_1.png" x="1835" y="329" width="200" height="100" left="414.4" top="452.4" pivotX="414.4" pivotY="452.4" frameWidth="1024" frameHeight="768" kind="2"/>
+</atlas>
