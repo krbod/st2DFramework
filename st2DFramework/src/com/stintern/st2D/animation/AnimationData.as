@@ -177,8 +177,10 @@ package com.stintern.st2D.animation
             var yList:XMLList = xml.child("atlasItem").attribute("y");
             var widthList:XMLList = xml.child("atlasItem").attribute("width");
             var heightList:XMLList = xml.child("atlasItem").attribute("height");
-            var frameXList:XMLList = xml.child("atlasItem").attribute("frameX");
-            var frameYList:XMLList = xml.child("atlasItem").attribute("frameY");
+            var pivotXList:XMLList = xml.child("atlasItem").attribute("pivotX");
+            var pivotYList:XMLList = xml.child("atlasItem").attribute("pivotY");
+            var leftList:XMLList = xml.child("atlasItem").attribute("left");
+            var topList:XMLList = xml.child("atlasItem").attribute("top");
             var frameWidthList:XMLList = xml.child("atlasItem").attribute("frameWidth");
             var frameHeightList:XMLList = xml.child("atlasItem").attribute("frameHeight");
             
@@ -187,7 +189,7 @@ package com.stintern.st2D.animation
             {
                 var fileName:String = nameList[i];
                 fileName = fileName.substr(0, fileName.indexOf("."));
-                animationFrameDictionary[fileName] = new AnimationFrame(fileName, xList[i], yList[i], widthList[i], heightList[i], frameXList[i], frameYList[i], frameWidthList[i], frameHeightList[i]);
+                animationFrameDictionary[fileName] = new AnimationFrame(fileName, xList[i], yList[i], widthList[i], heightList[i], pivotXList[i], pivotYList[i], leftList[i], topList[i], frameWidthList[i], frameHeightList[i]);
             }
             
             return animationFrameDictionary;
@@ -213,7 +215,7 @@ package com.stintern.st2D.animation
             for(var i:uint = 0; i<xml.children().length(); i++)
             {
                 aniName = nameList[i];
-                aniName = aniName.substr(0, aniName.indexOf("_"));
+                aniName = aniName.substr(0, aniName.lastIndexOf("_"));
                 
                 frameName = nameList[i];
                 frameName = frameName.substr(0, frameName.indexOf("."));

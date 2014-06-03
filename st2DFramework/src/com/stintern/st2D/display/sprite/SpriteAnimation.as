@@ -85,7 +85,7 @@ package com.stintern.st2D.display.sprite
                     if(playFrame != null)
                     {
                         //이미지의 원래 프레임에서의 위치를 고려하여 위치를 변경시킴
-                        if(isPlaying) framePosSetting(playFrame);
+                        //if(isPlaying) framePosSetting(playFrame);
                         
                         //uv좌표 변경하는 방식
                         frame.width = playFrame.width;
@@ -114,18 +114,18 @@ package com.stintern.st2D.display.sprite
                 if(preFrame == null)
                 {
                     //frameX,Y로 이동
-                    position.x += - playFrame.width/2  - playFrame.frameX + playFrame.frameWidth/2;
-                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
+                    position.x += - playFrame.width/2  - playFrame.pivotX + playFrame.frameWidth/2;
+                    position.y += - playFrame.height/2 - playFrame.pivotY + playFrame.frameHeight/2;
                 }
                 else
                 {
                     //이전 프레임에서 했던 frameX,Y로의 이동 제거
-                    position.x += + preFrame.width/2  + preFrame.frameX - preFrame.frameWidth/2;
-                    position.y += + preFrame.height/2 + preFrame.frameY - preFrame.frameHeight/2;
+                    position.x += + preFrame.width/2  + preFrame.pivotX - preFrame.frameWidth/2;
+                    position.y += + preFrame.height/2 + preFrame.pivotY - preFrame.frameHeight/2;
                     
                     //frameX,Y로 이동
-                    position.x += - playFrame.width/2  - playFrame.frameX + playFrame.frameWidth/2;
-                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
+                    position.x += - playFrame.width/2  - playFrame.pivotX + playFrame.frameWidth/2;
+                    position.y += - playFrame.height/2 - playFrame.pivotY + playFrame.frameHeight/2;
                 }
             }
                 //이미지가 뒤집히지 않은, 원래의 상태일 경우
@@ -134,18 +134,18 @@ package com.stintern.st2D.display.sprite
                 //이전 프레임이 없는, 애니메이션을 처음 실행할 경우
                 if(preFrame == null)
                 {
-                    position.x += + playFrame.width/2  + playFrame.frameX - playFrame.frameWidth/2;
-                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
+                    position.x += + playFrame.width/2  + playFrame.pivotX - playFrame.frameWidth/2;
+                    position.y += - playFrame.height/2 - playFrame.pivotY + playFrame.frameHeight/2;
                 }
                 else
                 {
                     //이전 프레임에서 했던 frameX,Y로의 이동 제거
-                    position.x += - preFrame.width/2  - preFrame.frameX + preFrame.frameWidth/2;
-                    position.y += + preFrame.height/2 + preFrame.frameY - preFrame.frameHeight/2;
+                    position.x += - preFrame.width/2  - preFrame.pivotX + preFrame.frameWidth/2;
+                    position.y += + preFrame.height/2 + preFrame.pivotY - preFrame.frameHeight/2;
                     
                     //frameX,Y로 이동
-                    position.x += + playFrame.width/2  + playFrame.frameX - playFrame.frameWidth/2;
-                    position.y += - playFrame.height/2 - playFrame.frameY + playFrame.frameHeight/2;
+                    position.x += + playFrame.width/2  + playFrame.pivotX - playFrame.frameWidth/2;
+                    position.y += - playFrame.height/2 - playFrame.pivotY + playFrame.frameHeight/2;
                 }
             }
             
