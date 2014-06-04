@@ -6,6 +6,7 @@ package com.stintern.st2D.ui
     import com.stintern.st2D.display.sprite.Sprite;
     import com.stintern.st2D.utils.Vector2D;
     
+    import flash.events.FullScreenEvent;
     import flash.events.MouseEvent;
     import flash.geom.Point;
     
@@ -14,14 +15,16 @@ package com.stintern.st2D.ui
         private var _normalSprite:Sprite;
         private var _clickedSprite:Sprite;
         
-        private var _callbackOnClick:Function;
-        
+        private var _callbackOnClick:Function = null;
+        private var _callbackOnMouseDown:Function = null;
+		private var _callbackOnMouseUp:Function = null;
+		
         public function Button()
         {
             
         }
         
-        public function createButton(batchSprite:BatchSprite, normalImage:String, clickedImage:String, onClick:Function):void
+        public function createButton(batchSprite:BatchSprite, normalImage:String, clickedImage:String, onClick:Function, onMouseDown:Function=null, onMouseUp:Function=null):void
         {
             _normalSprite = new Sprite();
             _normalSprite.createSpriteWithBatchSprite(batchSprite, normalImage);
@@ -75,5 +78,22 @@ package com.stintern.st2D.ui
             _normalSprite.isVisible = true;
             _clickedSprite.isVisible = false;
         }
+		
+		/** property */
+		public function set callbackClick(callback:Function):void
+		{
+			_callbackOnClick = callback;
+		}
+		
+		public function set callbackMouseDown(callback:Function):void
+		{
+			_callbackOnMouseDown = callback;
+		}
+		
+		public function set callbackMouseUp(callback:Function):void
+		{
+			_callbackOnMouseUp = callback;
+		}
+		
     }
 }

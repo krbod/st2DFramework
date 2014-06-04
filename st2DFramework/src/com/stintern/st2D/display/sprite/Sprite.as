@@ -524,6 +524,24 @@ package com.stintern.st2D.display.sprite
             return result;
         }
         
+		public function setFrameStagePos(frameName:String):void
+		{
+			var currentFrame:AnimationFrame = AnimationData.instance.animationData[path]["frame"][frameName];
+			
+			//이미지가 뒤집힌 상태이면
+			if(vertexData[3] > vertexData[3+9])
+			{
+				//frameX,Y로 이동
+				position.x += (- currentFrame.width/2  - currentFrame.pivotX + currentFrame.frameWidth/2)*scale.x;
+				position.y += (- currentFrame.height/2 - currentFrame.pivotY + currentFrame.frameHeight/2)*scale.x;
+			}
+				//이미지가 뒤집히지 않은, 원래의 상태일 경우
+			else
+			{
+				position.x += (+ currentFrame.width/2  + currentFrame.pivotX - currentFrame.frameWidth/2)*scale.x;
+				position.y += (- currentFrame.height/2 - currentFrame.pivotY + currentFrame.frameHeight/2)*scale.x;
+			}
+		}
 
         /** Property */
         public function getContentWidth():Number

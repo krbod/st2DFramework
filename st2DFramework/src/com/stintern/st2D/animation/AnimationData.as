@@ -177,19 +177,22 @@ package com.stintern.st2D.animation
             var yList:XMLList = xml.child("atlasItem").attribute("y");
             var widthList:XMLList = xml.child("atlasItem").attribute("width");
             var heightList:XMLList = xml.child("atlasItem").attribute("height");
-            var pivotXList:XMLList = xml.child("atlasItem").attribute("pivotX");
-            var pivotYList:XMLList = xml.child("atlasItem").attribute("pivotY");
+            var pivotXList:XMLList = xml.child("atlasItem").attribute("registratoinX");
+            var pivotYList:XMLList = xml.child("atlasItem").attribute("registratoinY");
             var leftList:XMLList = xml.child("atlasItem").attribute("left");
             var topList:XMLList = xml.child("atlasItem").attribute("top");
             var frameWidthList:XMLList = xml.child("atlasItem").attribute("frameWidth");
             var frameHeightList:XMLList = xml.child("atlasItem").attribute("frameHeight");
+			var anchorX:XMLList = xml.child("atlasItem").attribute("anchorX");
+			var anchorY:XMLList = xml.child("atlasItem").attribute("anchorY");
+			
             
             var animationFrameDictionary:Dictionary = new Dictionary();
             for(var i:uint = 0; i<xml.children().length(); i++)
             {
                 var fileName:String = nameList[i];
                 fileName = fileName.substr(0, fileName.indexOf("."));
-                animationFrameDictionary[fileName] = new AnimationFrame(fileName, xList[i], yList[i], widthList[i], heightList[i], pivotXList[i], pivotYList[i], leftList[i], topList[i], frameWidthList[i], frameHeightList[i]);
+                animationFrameDictionary[fileName] = new AnimationFrame(fileName, xList[i], yList[i], widthList[i], heightList[i], pivotXList[i], pivotYList[i], leftList[i], topList[i], frameWidthList[i], frameHeightList[i], anchorX[i], anchorY[i]);
             }
             
             return animationFrameDictionary;

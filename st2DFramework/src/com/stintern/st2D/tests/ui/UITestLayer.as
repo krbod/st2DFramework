@@ -2,7 +2,6 @@ package com.stintern.st2D.tests.ui
 {
     import com.stintern.st2D.basic.StageContext;
     import com.stintern.st2D.display.Layer;
-    import com.stintern.st2D.display.sprite.BatchSprite;
     import com.stintern.st2D.display.sprite.Sprite;
     import com.stintern.st2D.display.sprite.SpriteAnimation;
     import com.stintern.st2D.ui.Button;
@@ -44,6 +43,8 @@ package com.stintern.st2D.tests.ui
             
             var animation:SpriteAnimation = _uiLoader.loadAnimation("MOLE");
             animation.playAnimation();
+			
+			
         }
         
         private function onStartClick():void

@@ -7,16 +7,18 @@ package com.stintern.st2D.animation.datatype
     public class AnimationFrame
     {
         private var _name:String;
-        private var _x:int;
-        private var _y:int;
+        private var _x:Number;
+        private var _y:Number;
         private var _width:int;
         private var _height:int;
-        private var _pivotX:int;
-        private var _pivotY:int;
-        private var _left:int;
-        private var _top:int;
+        private var _pivotX:Number;
+        private var _pivotY:Number;
+        private var _left:Number;
+        private var _top:Number;
         private var _frameWidth:int;
         private var _frameHeight:int;
+		private var _anchorX:Number;
+		private var _anchorY:Number;
         
         /**
          * Frame 생성자입니다.
@@ -30,7 +32,7 @@ package com.stintern.st2D.animation.datatype
          * @param frameWidth 스프라이트 시트 만들 때 공백을 자르기 전, 원래 이미지에서의 Frame의 가로 길이
          * @param frameHeight 스프라이트 시트 만들 때 공백을 자르기 전, 원래 이미지에서의 Frame의 세로 길이
          */
-        public function AnimationFrame(name:String, x:int, y:int, width:int, height:int, pivotX:int, pivotY:int, left:int, top:int, frameWidth:int, frameHeight:int)
+        public function AnimationFrame(name:String, x:Number, y:Number, width:int, height:int, pivotX:Number, pivotY:Number, left:Number, top:Number, frameWidth:int, frameHeight:int, anchorX:Number, anchorY:Number)
         {
             _name = name;
             _x = x;
@@ -43,30 +45,36 @@ package com.stintern.st2D.animation.datatype
             _top = top;
             _frameWidth = frameWidth;
             _frameHeight = frameHeight;
+			_anchorX = anchorX;
+			_anchorY = anchorY;
         }
         
         public function get name():String     {return _name;}
-        public function get x():int           {return _x;}
-        public function get y():int           {return _y;}
+        public function get x():Number           {return _x;}
+        public function get y():Number           {return _y;}
         public function get width():int       {return _width;}
         public function get height():int      {return _height;}
-        public function get pivotX():int      {return _pivotX;}
-        public function get pivotY():int      {return _pivotY;}
-        public function get left():int          {return _left;}
-        public function get top():int          {return _top;}
+        public function get pivotX():Number      {return _pivotX;}
+        public function get pivotY():Number      {return _pivotY;}
+        public function get left():Number          {return _left;}
+        public function get top():Number          {return _top;}
         public function get frameWidth():int  {return _frameWidth;}
         public function get frameHeight():int {return _frameHeight;}
+		public function get anchorX():Number  {return _anchorX;}
+		public function get anchorY():Number {return _anchorY;}
         
         public function set name(value:String):void     {_name        = value;}
-        public function set x(value:int):void           {_x           = value;}
-        public function set y(value:int):void           {_y           = value;}
+        public function set x(value:Number):void           {_x           = value;}
+        public function set y(value:Number):void           {_y           = value;}
         public function set width(value:int):void       {_width       = value;}
         public function set height(value:int):void      {_height      = value;}
-        public function set pivotX(value:int):void      {_pivotX      = value;}
-        public function set pivotY(value:int):void      {_pivotY      = value;}
-        public function set left(value:int):void          {_left = value;}
-        public function set top(value:int):void          { _top = value;}
+        public function set pivotX(value:Number):void      {_pivotX      = value;}
+        public function set pivotY(value:Number):void      {_pivotY      = value;}
+        public function set left(value:Number):void          {_left = value;}
+        public function set top(value:Number):void          { _top = value;}
         public function set frameWidth(value:int):void  {_frameWidth  = value;}
         public function set frameHeight(value:int):void {_frameHeight = value;}
-    }
+		public function set anchorX(value:Number):void  {_anchorX  = value;}
+		public function set anchorY(value:Number):void {_anchorY = value;}
+	}
 }

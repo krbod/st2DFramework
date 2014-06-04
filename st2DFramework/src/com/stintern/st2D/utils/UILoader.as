@@ -50,7 +50,7 @@ package com.stintern.st2D.utils
             var animation:SpriteAnimation = new SpriteAnimation();
             
             AnimationData.instance.setAnimationDelayNum(_batchSprite.path, animationName,  3);
-            animation.createAnimationSpriteWithBatchSprite(_batchSprite, animationName, animationName, 500, 1000);
+            animation.createAnimationSpriteWithBatchSprite(_batchSprite, animationName, animationName);
             
             _batchSprite.addSprite(animation);
             
