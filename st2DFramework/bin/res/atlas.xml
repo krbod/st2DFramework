@@ -1,5 +1,5 @@
 <atlas>
-  <atlasItem name="BACKGROUND_1.png" x="2" y="2" width="1024" height="768" left="-1" top="0" registratoinX="-1" registratoinY="0" anchorX="0" anchorY="1" frameWidth="1024" frameHeight="768" kind="1"/>
+  <atlasItem name="BACKGROUND_1.png" x="2" y="2" width="1024" height="768" left="0" top="0" registratoinX="0" registratoinY="0" anchorX="0" anchorY="1" frameWidth="1024" frameHeight="768" kind="1"/>
   <atlasItem name="MOLE_1.png" x="1573" y="480" width="264" height="146" left="29" top="597.6" registratoinX="255.1" registratoinY="672.55" anchorX="0.8577389984825492" anchorY="0.4859396433470511" frameWidth="1024" frameHeight="768" kind="0"/>
   <atlasItem name="MOLE_2.png" x="1573" y="628" width="260" height="140" left="33.4" top="594.4" registratoinX="255.1" registratoinY="672.55" anchorX="0.8553240740740738" anchorY="0.43776978417266205" frameWidth="1024" frameHeight="768" kind="0"/>
   <atlasItem name="MOLE_3.png" x="1573" y="329" width="260" height="150" left="42.4" top="591.2" registratoinX="255.1" registratoinY="672.55" anchorX="0.819337442218798" anchorY="0.4540268456375845" frameWidth="1024" frameHeight="768" kind="0"/>
@@ -20,7 +20,7 @@
   <atlasItem name="MOLE_18.png" x="1827" y="172" width="216" height="154" left="47.2" top="594.2" registratoinX="255.1" registratoinY="672.55" anchorX="0.9687791239515375" anchorY="0.4852168199737192" frameWidth="1024" frameHeight="768" kind="0"/>
   <atlasItem name="MOLE_19.png" x="2" y="920" width="242" height="152" left="35" top="595.8" registratoinX="255.1" registratoinY="672.55" anchorX="0.9110099337748343" anchorY="0.4917218543046358" frameWidth="1024" frameHeight="768" kind="0"/>
   <atlasItem name="MOLE_20.png" x="2" y="772" width="260" height="146" left="31.6" top="597.6" registratoinX="255.1" registratoinY="672.55" anchorX="0.8616037008481111" anchorY="0.4859396433470511" frameWidth="1024" frameHeight="768" kind="0"/>
-  <atlasItem name="TEST_1.png" x="1230" y="641" width="88" height="30" left="52" top="71.4" registratoinX="49" registratoinY="64.25" anchorX="-0.034403669724770644" anchorY="1.2431972789115648" frameWidth="1024" frameHeight="768" kind="3"/>
   <atlasItem name="START_1.png" x="1028" y="641" width="200" height="100" left="414.4" top="452.4" registratoinX="414.45" registratoinY="452.45" anchorX="0.0002500000000000568" anchorY="0.9994999999999998" frameWidth="1024" frameHeight="768" kind="2"/>
   <atlasItem name="START_CLICKED_1.png" x="1835" y="329" width="200" height="100" left="414.4" top="452.4" registratoinX="414.45" registratoinY="452.45" anchorX="0.0002500000000000568" anchorY="0.9994999999999998" frameWidth="1024" frameHeight="768" kind="2"/>
+  <atlasItem name="PLZ" left="57.2" top="49.8" registratoinX="55.25" registratoinY="47.85" anchorX="0.058295964125560616" anchorY="1.0205913410770855" frameWidth="1024" frameHeight="768" fontFamily="Tempus Sans ITC" fontColor="0" fontSize="34" text="Test" kind="3"/>
 </atlas>

@@ -1,27 +1,30 @@
 package com.stintern.st2D.ui
 {
     import com.stintern.st2D.animation.AnimationData;
+    import com.stintern.st2D.animation.datatype.AnimationFrame;
     import com.stintern.st2D.basic.StageContext;
     import com.stintern.st2D.display.sprite.BatchSprite;
     import com.stintern.st2D.display.sprite.Sprite;
     import com.stintern.st2D.utils.Vector2D;
     
-    import flash.events.FullScreenEvent;
     import flash.events.MouseEvent;
     import flash.geom.Point;
     
-    public class Button
+    public class Button extends UIBase
     {
         private var _normalSprite:Sprite;
         private var _clickedSprite:Sprite;
         
-        private var _callbackOnClick:Function = null;
-        private var _callbackOnMouseDown:Function = null;
-		private var _callbackOnMouseUp:Function = null;
-		
         public function Button()
         {
             
+        }
+        
+        public function dispose():void
+        {
+            StageContext.instance.stage.removeEventListener(MouseEvent.CLICK, eventMouseClick);
+            StageContext.instance.stage.removeEventListener(MouseEvent.MOUSE_DOWN, eventMouseDown);
+            StageContext.instance.stage.removeEventListener(MouseEvent.MOUSE_UP, eventMouseUp);
         }
         
         public function createButton(batchSprite:BatchSprite, normalImage:String, clickedImage:String, onClick:Function, onMouseDown:Function=null, onMouseUp:Function=null):void
@@ -35,9 +38,21 @@ package com.stintern.st2D.ui
             batchSprite.addSprite(_clickedSprite);
             _clickedSprite.isVisible = false;
             
-            _callbackOnClick = onClick;
+            callbackClick = onClick;
+            callbackMouseDown = onMouseDown;
+            callbackMouseUp = onMouseUp;
             
-            setPosition(AnimationData.instance.animationData[batchSprite.path]["frame"][normalImage].left, StageContext.instance.screenHeight-AnimationData.instance.animationData[batchSprite.path]["frame"][normalImage].top);
+            var frame:AnimationFrame = AnimationData.instance.animationData[batchSprite.path]["frame"][normalImage];
+            _normalSprite.position.x = frame.pivotX;
+            _normalSprite.position.y = StageContext.instance.screenHeight - frame.pivotY;
+            
+            _normalSprite.setAnchorPoint(frame.anchorX, frame.anchorY);
+            
+            frame = AnimationData.instance.animationData[batchSprite.path]["frame"][clickedImage];
+            _clickedSprite.position.x = frame.pivotX;
+            _clickedSprite.position.y = StageContext.instance.screenHeight - frame.pivotY;
+            
+            _clickedSprite.setAnchorPoint(frame.anchorX, frame.anchorY);
             
             StageContext.instance.stage.addEventListener(MouseEvent.CLICK, eventMouseClick);
             StageContext.instance.stage.addEventListener(MouseEvent.MOUSE_DOWN, eventMouseDown);
@@ -60,7 +75,7 @@ package com.stintern.st2D.ui
         {
             if( _normalSprite.rect.containsPoint(new Point(event.stageX, StageContext.instance.screenHeight - event.stageY)) )
             {
-                _callbackOnClick();
+                callbackClick();
             }
         }
         
@@ -70,6 +85,11 @@ package com.stintern.st2D.ui
             {
                 _normalSprite.isVisible = false;
                 _clickedSprite.isVisible = true;
+                
+                if( callbackMouseDown != null )
+                {
+                    callbackMouseDown();
+                }
             }
         }
         
@@ -77,23 +97,13 @@ package com.stintern.st2D.ui
         {
             _normalSprite.isVisible = true;
             _clickedSprite.isVisible = false;
+            
+            if( callbackMouseUp != null )
+            {
+                callbackMouseUp();
+            }
         }
-		
-		/** property */
-		public function set callbackClick(callback:Function):void
-		{
-			_callbackOnClick = callback;
-		}
-		
-		public function set callbackMouseDown(callback:Function):void
-		{
-			_callbackOnMouseDown = callback;
-		}
-		
-		public function set callbackMouseUp(callback:Function):void
-		{
-			_callbackOnMouseUp = callback;
-		}
+
 		
     }
 }

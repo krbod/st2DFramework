@@ -185,14 +185,38 @@ package com.stintern.st2D.animation
             var frameHeightList:XMLList = xml.child("atlasItem").attribute("frameHeight");
 			var anchorX:XMLList = xml.child("atlasItem").attribute("anchorX");
 			var anchorY:XMLList = xml.child("atlasItem").attribute("anchorY");
-			
+            var fontFamily:XMLList =xml.child("atlasItem").attribute("fontFamily");
+            var fontColor:XMLList =xml.child("atlasItem").attribute("fontColor"); 
+            var fontSize:XMLList =xml.child("atlasItem").attribute("fontSize"); 
+            var text:XMLList =xml.child("atlasItem").attribute("text"); 
+            
+            var kind:XMLList = xml.child("atlasItem").attribute("kind");
+            var fontCount:uint = 0;
             
             var animationFrameDictionary:Dictionary = new Dictionary();
             for(var i:uint = 0; i<xml.children().length(); i++)
             {
                 var fileName:String = nameList[i];
-                fileName = fileName.substr(0, fileName.indexOf("."));
-                animationFrameDictionary[fileName] = new AnimationFrame(fileName, xList[i], yList[i], widthList[i], heightList[i], pivotXList[i], pivotYList[i], leftList[i], topList[i], frameWidthList[i], frameHeightList[i], anchorX[i], anchorY[i]);
+                if( fileName.indexOf("." ) > 0 )
+                {
+                    fileName = fileName.substr(0, fileName.indexOf("."));
+                }
+
+                if( kind[i] != 3 )
+                {
+                    animationFrameDictionary[fileName] = new AnimationFrame(
+                        fileName, xList[i], yList[i], widthList[i], heightList[i], pivotXList[i], pivotYList[i], leftList[i], topList[i], frameWidthList[i], frameHeightList[i], anchorX[i], anchorY[i], "", 0, 0, ""
+                    );    
+                }
+                else
+                {
+                    animationFrameDictionary[fileName] = new AnimationFrame(
+                        fileName, xList[i], yList[i], widthList[i], heightList[i], pivotXList[i], pivotYList[i], leftList[i], topList[i], frameWidthList[i], frameHeightList[i], anchorX[i], anchorY[i], fontFamily[fontCount], fontColor[fontCount], fontSize[fontCount], text[fontCount]
+                    );
+                    
+                    fontCount++;
+                }
+                
             }
             
             return animationFrameDictionary;

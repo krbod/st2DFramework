@@ -1,11 +1,14 @@
 package com.stintern.st2D.utils
 {
     import com.stintern.st2D.animation.AnimationData;
+    import com.stintern.st2D.animation.datatype.AnimationFrame;
+    import com.stintern.st2D.basic.StageContext;
     import com.stintern.st2D.display.Layer;
     import com.stintern.st2D.display.sprite.BatchSprite;
     import com.stintern.st2D.display.sprite.Sprite;
     import com.stintern.st2D.display.sprite.SpriteAnimation;
     import com.stintern.st2D.ui.Button;
+    import com.stintern.st2D.ui.Text;
 
     public class UILoader
     {
@@ -32,8 +35,13 @@ package com.stintern.st2D.utils
         {
             var sprite:Sprite = new Sprite();
             sprite.createSpriteWithBatchSprite(_batchSprite, name);
-            sprite.setDefaultPosition(_batchSprite, name);
             _batchSprite.addSprite(sprite);
+            
+            var frame:AnimationFrame = AnimationData.instance.animationData[_batchSprite.path]["frame"][name];
+            sprite.position.x = frame.pivotX;
+            sprite.position.y = StageContext.instance.screenHeight - frame.pivotY;
+            
+            sprite.setAnchorPoint(frame.anchorX, frame.anchorY);
             
             return sprite;
         }
@@ -42,6 +50,7 @@ package com.stintern.st2D.utils
         {
             var button:Button = new Button();
             button.createButton(_batchSprite, normalImage, clickedImage, onClick);
+            
             return button;
         }
         
@@ -55,6 +64,16 @@ package com.stintern.st2D.utils
             _batchSprite.addSprite(animation);
             
             return animation;
+        }
+        
+        public function loadTextField(name:String):Text
+        {
+            var text:Text = new Text();
+            
+            var frame:AnimationFrame = AnimationData.instance.animationData[_batchSprite.path]["frame"][name];
+            text.init(frame);
+            
+            return text;
         }
             
     }

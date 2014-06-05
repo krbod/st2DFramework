@@ -19,6 +19,10 @@ package com.stintern.st2D.animation.datatype
         private var _frameHeight:int;
 		private var _anchorX:Number;
 		private var _anchorY:Number;
+        private var _fontFamily:String;
+        private var _fontSize:Number;
+        private var _fontColor:uint;
+        private var _text:String;
         
         /**
          * Frame 생성자입니다.
@@ -32,7 +36,7 @@ package com.stintern.st2D.animation.datatype
          * @param frameWidth 스프라이트 시트 만들 때 공백을 자르기 전, 원래 이미지에서의 Frame의 가로 길이
          * @param frameHeight 스프라이트 시트 만들 때 공백을 자르기 전, 원래 이미지에서의 Frame의 세로 길이
          */
-        public function AnimationFrame(name:String, x:Number, y:Number, width:int, height:int, pivotX:Number, pivotY:Number, left:Number, top:Number, frameWidth:int, frameHeight:int, anchorX:Number, anchorY:Number)
+        public function AnimationFrame(name:String, x:Number, y:Number, width:int, height:int, pivotX:Number, pivotY:Number, left:Number, top:Number, frameWidth:int, frameHeight:int, anchorX:Number, anchorY:Number, fontFamily:String, fontColor:uint, fontSize:Number, text:String)
         {
             _name = name;
             _x = x;
@@ -47,6 +51,10 @@ package com.stintern.st2D.animation.datatype
             _frameHeight = frameHeight;
 			_anchorX = anchorX;
 			_anchorY = anchorY;
+            _fontFamily = fontFamily;
+            _fontSize = fontSize;
+            _fontColor = fontColor;
+            _text = text;
         }
         
         public function get name():String     {return _name;}
@@ -62,6 +70,10 @@ package com.stintern.st2D.animation.datatype
         public function get frameHeight():int {return _frameHeight;}
 		public function get anchorX():Number  {return _anchorX;}
 		public function get anchorY():Number {return _anchorY;}
+        public function get fontFamily():String  {return _fontFamily;}
+        public function get fontSize():Number {return _fontSize;}
+        public function get fontColor():uint  {return _fontColor;}
+        public function get text():String {return _text;}
         
         public function set name(value:String):void     {_name        = value;}
         public function set x(value:Number):void           {_x           = value;}
@@ -76,5 +88,9 @@ package com.stintern.st2D.animation.datatype
         public function set frameHeight(value:int):void {_frameHeight = value;}
 		public function set anchorX(value:Number):void  {_anchorX  = value;}
 		public function set anchorY(value:Number):void {_anchorY = value;}
+        public function set fontFamily(value:String):void  {_fontFamily  = value;}
+        public function set fontSize(value:Number):void {_fontSize = value;}
+        public function set fontColor(value:uint):void  {_fontColor  = value;}
+        public function set text(value:String):void {_text = value;}
 	}
 }
