@@ -48,6 +48,16 @@ package com.stintern.st2D.display.sprite
         
         public function setAnchorPoint(x:Number, y:Number):void
         {
+            if( x < 0 )
+                x = 0;
+            else if( x > 1 )
+                x = 1;
+            
+            if( y < 0 )
+                y = 0;
+            else if( y > 1 )
+                y = 1;
+            
             vertexData[0] = 0 - x;
             vertexData[1] = 1 - y;
             
