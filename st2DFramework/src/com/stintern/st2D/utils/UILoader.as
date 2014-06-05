@@ -8,6 +8,7 @@ package com.stintern.st2D.utils
     import com.stintern.st2D.display.sprite.Sprite;
     import com.stintern.st2D.display.sprite.SpriteAnimation;
     import com.stintern.st2D.ui.Button;
+    import com.stintern.st2D.ui.Slider;
     import com.stintern.st2D.ui.Text;
 
     public class UILoader
@@ -74,6 +75,14 @@ package com.stintern.st2D.utils
             text.init(frame);
             
             return text;
+        }
+        
+        public function loadSlider(barImage:String, buttonImage:String, type:uint = 0, onClick:Function = null, onMouseDown:Function = null, onMouseUp:Function = null):Slider
+        {
+            var slider:Slider = new Slider();
+            slider.createSlider(_batchSprite, barImage, buttonImage, type, onClick, onMouseDown, onMouseUp);
+            
+            return slider;
         }
             
     }

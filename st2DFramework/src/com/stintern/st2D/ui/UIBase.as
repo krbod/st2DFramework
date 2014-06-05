@@ -5,6 +5,7 @@ package com.stintern.st2D.ui
         
         private var _callbackOnClick:Function = null;
         private var _callbackOnMouseDown:Function = null;
+        private var _callbackOnMouseMove:Function = null;
         private var _callbackOnMouseUp:Function = null;
         
         public function UIBase()
@@ -31,6 +32,15 @@ package com.stintern.st2D.ui
         public function set callbackMouseDown(callback:Function):void
         {
             _callbackOnMouseDown = callback;
+        }
+        
+        public function get callbackMouseMove():Function
+        {
+            return _callbackOnMouseMove;
+        }
+        public function set callbackMouseMove(callback:Function):void
+        {
+            _callbackOnMouseMove = callback;
         }
         
         public function get callbackMouseUp():Function
