@@ -41,6 +41,7 @@ package com.stintern.st2D.ui
             _textField.text = _text;
             _textField.x = frame.pivotX;
             _textField.y = frame.pivotY;
+            _textField.autoSize = TextFieldAutoSize.LEFT;
             
             
             StageContext.instance.stage.addChild(_textField);
