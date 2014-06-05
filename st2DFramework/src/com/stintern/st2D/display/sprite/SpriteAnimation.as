@@ -108,35 +108,10 @@ package com.stintern.st2D.display.sprite
          */
         private function framePosSetting(playFrame:AnimationFrame):void
         {
-            //이미지가 뒤집힌 상태이면
-            if(vertexData[3] > vertexData[3+9])
-            {
-                //이전 프레임이 없는, 애니메이션을 처음 실행할 경우
-                if(preFrame == null)
-                {
-                    //frameX,Y로 이동
-                    position.x += - playFrame.width/2  - playFrame.pivotX + playFrame.frameWidth/2;
-                    position.y += - playFrame.height/2 - playFrame.pivotY + playFrame.frameHeight/2;
-                }
-                else
-                {
-                    //이전 프레임에서 했던 frameX,Y로의 이동 제거
-                    position.x += + preFrame.width/2  + preFrame.pivotX - preFrame.frameWidth/2;
-                    position.y += + preFrame.height/2 + preFrame.pivotY - preFrame.frameHeight/2;
-                    
-                    //frameX,Y로 이동
-                    position.x += - playFrame.width/2  - playFrame.pivotX + playFrame.frameWidth/2;
-                    position.y += - playFrame.height/2 - playFrame.pivotY + playFrame.frameHeight/2;
-                }
-            }
-                //이미지가 뒤집히지 않은, 원래의 상태일 경우
-            else
-            {
-				position.x = playFrame.pivotX;
-				position.y = StageContext.instance.screenHeight - playFrame.pivotY;
-				
-				setAnchorPoint(playFrame.anchorX, playFrame.anchorY);
-            }
+			position.x = playFrame.pivotX;
+			position.y = StageContext.instance.screenHeight - playFrame.pivotY;
+			
+			setAnchorPoint(playFrame.anchorX, playFrame.anchorY);
             
             preFrame = playFrame;
         }
