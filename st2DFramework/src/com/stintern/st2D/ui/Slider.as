@@ -27,6 +27,8 @@ package com.stintern.st2D.ui
         public static var SLIDER_TYPE_HORIZONTAL_BAR:uint = 0;
         public static var SLIDER_TYPE_VERTICAL_BAR:uint = 1;
         
+        private var _moveBound:Number = 2.0;    // 슬라이더 바 클릭시 이동하는 양
+        
         //슬라이더 버튼 드래그 관련
         private var _oldTouch:Number;
         private var _isMoving:Boolean = false;
@@ -67,13 +69,11 @@ package com.stintern.st2D.ui
             switch( _type )
             {
                 case Slider.SLIDER_TYPE_HORIZONTAL_BAR:
-                    _oldTouch = _buttonSprite.position.x;
                     _minCoord =  AnimationData.instance.animationData[batchSprite.path]["frame"][barImage].left;
                     _maxCoord =  _minCoord + AnimationData.instance.animationData[batchSprite.path]["frame"][barImage].width;
                     break;
                 
                 case Slider.SLIDER_TYPE_VERTICAL_BAR:
-                    _oldTouch = _buttonSprite.position.y;
                     _minCoord =  AnimationData.instance.animationData[batchSprite.path]["frame"][barImage].bottom;
                     _maxCoord =  AnimationData.instance.animationData[batchSprite.path]["frame"][barImage].height;
                     break;
@@ -100,6 +100,31 @@ package com.stintern.st2D.ui
         {
             if( _barSprite.rect.containsPoint(new Point(event.stageX, StageContext.instance.screenHeight - event.stageY)) )
             {
+                switch( _type )
+                {
+                    case Slider.SLIDER_TYPE_HORIZONTAL_BAR:
+                        if( event.stageX > _buttonSprite.position.x )
+                        {
+                            this.value += _moveBound;
+                        }
+                        else if( event.stageX < _buttonSprite.position.x )
+                        {
+                            this.value -= _moveBound;
+                        }
+                        break;
+                    
+                    case Slider.SLIDER_TYPE_VERTICAL_BAR:
+                        if( event.stageY > _buttonSprite.position.y )
+                        {
+                            this.value += _moveBound;
+                        }
+                        else if( event.stageY < _buttonSprite.position.y )
+                        {
+                            this.value -= _moveBound;
+                        }
+                        break;
+                }
+                
                 if( callbackClick != null )
                 {
                     callbackClick();
@@ -112,6 +137,16 @@ package com.stintern.st2D.ui
             if( _buttonSprite.rect.containsPoint(new Point(event.stageX, StageContext.instance.screenHeight - event.stageY)) )
             {
                 _isMoving = true;
+                switch( _type )
+                {
+                    case Slider.SLIDER_TYPE_HORIZONTAL_BAR:
+                        _oldTouch = _buttonSprite.position.x;
+                        break;
+                    
+                    case Slider.SLIDER_TYPE_VERTICAL_BAR:
+                        _oldTouch = _buttonSprite.position.y;
+                        break;
+                }
             }
         }
         
@@ -252,6 +287,15 @@ package com.stintern.st2D.ui
                     _buttonSprite.position.y = (_maxCoord - _minCoord) * percent + _minCoord;
                     break;
             }
+        }
+        
+        public function get moveBound():Number
+        {
+            return _moveBound;
+        }
+        public function set moveBound(moveBound:Number):void
+        {
+            _moveBound = moveBound;
         }
     }
 }

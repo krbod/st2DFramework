@@ -34,17 +34,22 @@ package com.stintern.st2D.tests.ui
         
         private function loadComplete():void
         {
-            var bkgSprite:Sprite = _uiLoader.loadSprite("BACKGROUND_1");
-            var button:Button = _uiLoader.loadButton("START_1", "START_CLICKED_1", onStartClick);
+            var bkgSprite:Sprite = _uiLoader.loadSprite("bkg");
+            var button:Button = _uiLoader.loadButton("startButton", "startButtonClicked", onStartClick);
             
-            var animation:SpriteAnimation = _uiLoader.loadAnimation("MOLE");
+            var animation:SpriteAnimation = _uiLoader.loadAnimation("mole");
             animation.playAnimation();
             
-            _text = _uiLoader.loadTextField("PLZ");
+            var animation2:SpriteAnimation = _uiLoader.loadAnimation("mole2");
+            animation2.playAnimation();
+            
+            _text = _uiLoader.loadTextField("volumeText");
             _text.callbackClick = onTextClick;
             
-            _slider = _uiLoader.loadSlider("YELLOW_1", "BLUE_1", Slider.SLIDER_TYPE_HORIZONTAL_BAR);
+            _slider = _uiLoader.loadSlider("VolumeSliderBar", "VolumeSliderButton", Slider.SLIDER_TYPE_HORIZONTAL_BAR);
             _slider.callbackMouseMove = callbackSliderMove;
+            _slider.callbackClick = callbackSliderMove;
+            
             _slider.value = _volume;
         }
         
