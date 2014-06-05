@@ -1,0 +1,9 @@
+<atlas>
+  <atlasItem name="bkg.png" x="2" y="2" width="768" height="1024" left="0" top="0" registratoinX="0" registratoinY="0" anchorX="0" anchorY="1" frameWidth="768" frameHeight="1024" kind="1"/>
+  <atlasItem name="BoxCount" x="0" y="0" width="0" height="0" left="250.6" top="908.8" registratoinX="248.75" registratoinY="906.95" anchorX="0.009716896895845342" anchorY="1.0271460014673501" frameWidth="768" frameHeight="1024" fontFamily="Vrinda" fontColor="0" fontSize="47" text=":3" kind="3"/>
+  <atlasItem name="ArrowCount" x="0" y="0" width="0" height="0" left="388" top="910" registratoinX="386.15" registratoinY="908" anchorX="0.006163379530916921" anchorY="1.0293470286133528" frameWidth="768" frameHeight="1024" fontFamily="Vrinda" fontColor="0" fontSize="47" text=":2&#xD;" kind="3"/>
+  <atlasItem name="IceCount" x="0" y="0" width="0" height="0" left="525.8" top="907.2" registratoinX="523.95" registratoinY="905.2" anchorX="0.00452643683785547" anchorY="1.0293470286133528" frameWidth="768" frameHeight="1024" fontFamily="Vrinda" fontColor="0" fontSize="47" text=":0&#xD;" kind="3"/>
+  <atlasItem name="BoxButton.png" x="2" y="1028" width="64" height="64" left="175" top="910.4" registratoinX="175.05" registratoinY="910.55" anchorX="0.0007812500000001776" anchorY="0.9976562500000004" frameWidth="768" frameHeight="1024" kind="2"/>
+  <atlasItem name="ArrowButton.png" x="68" y="1028" width="64" height="64" left="315.6" top="910.6" registratoinX="315.65" registratoinY="910.6" anchorX="0.0007812499999992895" anchorY="1" frameWidth="768" frameHeight="1024" kind="2"/>
+  <atlasItem name="IceButton.png" x="134" y="1028" width="64" height="64" left="454.8" top="907.8" registratoinX="454.85" registratoinY="907.8" anchorX="0.0007812500000001783" anchorY="1" frameWidth="768" frameHeight="1024" kind="2"/>
+</atlas>

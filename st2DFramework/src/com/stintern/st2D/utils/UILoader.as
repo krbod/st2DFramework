@@ -47,7 +47,7 @@ package com.stintern.st2D.utils
             return sprite;
         }
         
-        public function loadButton(normalImage:String, clickedImage:String, onClick:Function):Button
+        public function loadButton(normalImage:String, clickedImage:String, onClick:Function = null):Button
         {
             var button:Button = new Button();
             button.createButton(_batchSprite, normalImage, clickedImage, onClick);

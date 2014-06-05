@@ -4,7 +4,7 @@ package com.stintern.st2D
     import com.stintern.st2D.display.DrawManager;
     import com.stintern.st2D.display.Scene;
     import com.stintern.st2D.display.SceneManager;
-    import com.stintern.st2D.tests.ui.UITestLayer;
+    import com.stintern.st2D.tests.turnX3.maingame.MainGameLayer;
     import com.stintern.st2D.utils.GameStatus;
     import com.stintern.st2D.utils.GameTimer;
     
@@ -35,7 +35,7 @@ package com.stintern.st2D
         {
             var scene:Scene = new Scene();
             
-            var testLayer:UITestLayer = new UITestLayer();
+            var testLayer:MainGameLayer = new MainGameLayer();
             scene.addLayer(testLayer);
             
             SceneManager.instance.pushScene(scene);

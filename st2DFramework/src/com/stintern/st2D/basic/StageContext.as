@@ -113,7 +113,7 @@ package com.stintern.st2D.basic
             fragmentShaderAssembler.assemble
                 ( 
                     Context3DProgramType.FRAGMENT,	
-                    "tex ft0, v1, fs0 <2d,linear,repeat,miplinear>\n" +	
+                    "tex ft0, v1, fs0 <2d,linear,repeat>\n" +	
                     "mul ft1, v2, ft0\n" +
                     "mov oc, ft1\n"									
                 );
