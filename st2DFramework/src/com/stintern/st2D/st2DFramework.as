@@ -6,6 +6,7 @@ package com.stintern.st2D
     import com.stintern.st2D.display.SceneManager;
     import com.stintern.st2D.tests.turnX3.maingame.layer.MainGameLayer;
     import com.stintern.st2D.tests.turnX3.maingame.layer.UILayer;
+    import com.stintern.st2D.tests.ui.UITestLayer;
     import com.stintern.st2D.utils.GameStatus;
     import com.stintern.st2D.utils.GameTimer;
     
@@ -37,16 +38,12 @@ package com.stintern.st2D
             var scene:Scene = new Scene();
 			SceneManager.instance.pushScene(scene);
             
-			var uiLayer:UILayer = new UILayer;
+			var uiLayer:UITestLayer = new UITestLayer;
 			scene.addLayer(uiLayer);
-			
-            var testLayer:MainGameLayer = new MainGameLayer();
-            scene.addLayer(testLayer);
-            
             
             addEventListener(Event.ENTER_FRAME, enterFrame);
             
-            addChild(GameStatus.instance.initFPS());         // FPS 출력을 원하지 않을 경우 주석 처리하십시오
+            //addChild(GameStatus.instance.initFPS());         // FPS 출력을 원하지 않을 경우 주석 처리하십시오
         }
         
         /**
@@ -62,7 +59,7 @@ package com.stintern.st2D
             draw();
             
             // FPS 출력을 원하지 않을 경우 주석 처리하십시오
-            GameStatus.instance.update();                
+            //GameStatus.instance.update();                
             
         }
         

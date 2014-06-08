@@ -17,8 +17,8 @@ package com.stintern.st2D.ui
         private var _buttonSprite:Sprite;
         
         // 슬라이더 값
-        private var _minValue:Number =  0.0;
-        private var _maxValue:Number = 100.0;
+        private var _minValue:Number =  0.1;
+        private var _maxValue:Number = 3.0;
         private var _currentValue:Number;
         
         // 슬라이더 타입
@@ -27,7 +27,7 @@ package com.stintern.st2D.ui
         public static var SLIDER_TYPE_HORIZONTAL_BAR:uint = 0;
         public static var SLIDER_TYPE_VERTICAL_BAR:uint = 1;
         
-        private var _moveBound:Number = 2.0;    // 슬라이더 바 클릭시 이동하는 양
+        private var _moveBound:Number = 0.2;    // 슬라이더 바 클릭시 이동하는 양
         
         //슬라이더 버튼 드래그 관련
         private var _oldTouch:Number;
@@ -182,7 +182,10 @@ package com.stintern.st2D.ui
                         _oldTouch = event.stageX;
                     }
                     
-                    _currentValue = (_buttonSprite.position.x - _minCoord ) / (_maxCoord - _minCoord ) * (_maxValue - _minValue );;
+                    _currentValue = (_buttonSprite.position.x - _minCoord ) / (_maxCoord - _minCoord ) * (_maxValue - _minValue );
+					if( _currentValue < _minValue )
+						_currentValue = _minValue;
+					
                     break;
                 
                 case SLIDER_TYPE_VERTICAL_BAR:

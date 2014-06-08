@@ -1,20 +1,27 @@
 package com.stintern.st2D.tests.ui
 {
     import com.stintern.st2D.display.Layer;
+    import com.stintern.st2D.display.Scene;
+    import com.stintern.st2D.display.SceneManager;
     import com.stintern.st2D.display.sprite.Sprite;
     import com.stintern.st2D.display.sprite.SpriteAnimation;
+    import com.stintern.st2D.tests.turnX3.maingame.layer.MainGameLayer;
+    import com.stintern.st2D.tests.turnX3.maingame.layer.UILayer;
     import com.stintern.st2D.ui.Button;
+    import com.stintern.st2D.ui.ButtonInfo;
     import com.stintern.st2D.ui.Slider;
     import com.stintern.st2D.ui.Text;
     import com.stintern.st2D.utils.UILoader;
     
     public class UITestLayer extends Layer
     {
-        private var _uiLoader:UILoader = new UILoader(); 
+        private var _uiLoader:UILoader = new UILoader();
+		
+		private var _scalingAnimation:SpriteAnimation;
         
         private var _text:Text;
         private var _slider:Slider;
-        private var _volume:uint = 12;
+        private var _volume:Number = 1.0;
         
         public function UITestLayer()
         {
@@ -40,8 +47,8 @@ package com.stintern.st2D.tests.ui
             var animation:SpriteAnimation = _uiLoader.loadAnimation("mole");
             animation.playAnimation();
             
-            var animation2:SpriteAnimation = _uiLoader.loadAnimation("mole2");
-            animation2.playAnimation();
+			_scalingAnimation = _uiLoader.loadAnimation("mole2");
+			_scalingAnimation.playAnimation();
             
             _text = _uiLoader.loadTextField("volumeText");
             _text.callbackClick = onTextClick;
@@ -53,15 +60,23 @@ package com.stintern.st2D.tests.ui
             _slider.value = _volume;
         }
         
-        private function onStartClick():void
+        private function onStartClick(buttonInfo:ButtonInfo):void
         {
-            
+			var scene:Scene = new Scene();
+			SceneManager.instance.pushScene(scene);
+			
+			var uiLayer:UILayer = new UILayer;
+			scene.addLayer(uiLayer);
+			
+            var testLayer:MainGameLayer = new MainGameLayer();
+            scene.addLayer(testLayer);
         }
         
         private function callbackSliderMove():void
         {
-            _text.text = "Volume " + _slider.value.toFixed(0);
-            trace("Volume " + _slider.value);
+            _text.text = "Volume " + _slider.value.toFixed(1);
+			_scalingAnimation.scale.x = _slider.value;
+			_scalingAnimation.scale.y = _slider.value;
         }
         
         private function onTextClick():void
