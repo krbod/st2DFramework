@@ -180,6 +180,13 @@ package com.stintern.st2D.display.sprite
                 vertexData[4 + i * DATAS_PER_VERTEX] = uvCoord[uvIndex++];
             }
         }
+		
+		public function changeSprite(batchSprite:BatchSprite, imageName:String):void
+		{
+			getSpriteInBatchSprite(batchSprite, imageName);
+			
+			update();
+		}
                 
         /**
          * 스프라이트에 사용할 텍스쳐를 초기화합니다. 

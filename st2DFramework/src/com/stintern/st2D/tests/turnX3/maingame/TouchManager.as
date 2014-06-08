@@ -69,7 +69,7 @@ package com.stintern.st2D.tests.turnX3.maingame
 		public function callbackRotateLeftClicked(buttonInfo:ButtonInfo):void
 		{
 			var scheduler:Scheduler = new Scheduler();
-			scheduler.addFunc(1000 / 180, rotateLeft, 0);
+			scheduler.addFunc(500 / 90, rotateLeft, 0);
 			
 			var camera:Camera = (SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_MAINGAME) as MainGameLayer).camera;
 			var degree:Number = _rotateDegree;
@@ -83,6 +83,8 @@ package com.stintern.st2D.tests.turnX3.maingame
 				{
 					scheduler.stopScheduler();
 					scheduler = null;
+					
+					Gravity.instance.rotateLeft();
 				}
 			}
 		}
@@ -90,7 +92,7 @@ package com.stintern.st2D.tests.turnX3.maingame
 		public function callbackRotateRightClicked(buttonInfo:ButtonInfo):void
 		{
 			var scheduler:Scheduler = new Scheduler();
-			scheduler.addFunc(1000 / 180, rotateRight, 0);
+			scheduler.addFunc(500 / 90, rotateRight, 0);
 			
 			var camera:Camera = (SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_MAINGAME) as MainGameLayer).camera;
 			var degree:Number = _rotateDegree;
@@ -104,6 +106,8 @@ package com.stintern.st2D.tests.turnX3.maingame
 				{
 					scheduler.stopScheduler();
 					scheduler = null;
+					
+					Gravity.instance.rotateRight();
 				}
 			}
 		}
@@ -111,7 +115,7 @@ package com.stintern.st2D.tests.turnX3.maingame
 		public function callbackRotate180Clicked(buttonInfo:ButtonInfo):void
 		{
 			var scheduler:Scheduler = new Scheduler();
-			scheduler.addFunc(1000 / 180, rotateRight, 0);
+			scheduler.addFunc(500 / 180, rotateRight, 0);
 			
 			var camera:Camera = (SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_MAINGAME) as MainGameLayer).camera;
 			var degree:Number = _rotateDegree;
@@ -125,6 +129,8 @@ package com.stintern.st2D.tests.turnX3.maingame
 				{
 					scheduler.stopScheduler();
 					scheduler = null;
+					
+					Gravity.instance.rotate180();
 				}
 			}
 		}

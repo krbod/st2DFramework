@@ -1,10 +1,12 @@
 package com.stintern.st2D.tests.turnX3.maingame.block
 {
 	import com.stintern.st2D.basic.StageContext;
+	import com.stintern.st2D.display.SceneManager;
 	import com.stintern.st2D.display.sprite.BatchSprite;
 	import com.stintern.st2D.tests.turnX3.maingame.GameBoard;
 	import com.stintern.st2D.tests.turnX3.maingame.Gravity;
 	import com.stintern.st2D.tests.turnX3.maingame.LevelManager;
+	import com.stintern.st2D.tests.turnX3.maingame.layer.MainGameLayer;
 	import com.stintern.st2D.tests.turnX3.utils.Resources;
 	import com.stintern.st2D.utils.Vector2D;
 	
@@ -13,18 +15,43 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 		private var _blockArray:Vector.<Block> = new Vector.<Block>();
 		private var _keyBlockArray:Vector.<Block> = new Vector.<Block>();
 		
+		private var _batch:BatchSprite;
+		
 		private var _rowCount:uint;
 		private var _colCount:uint;
 		
-		private var _gravity:Gravity;
+		private var _finishedBlockCount:uint;
 		
 		public function BlockManager()
 		{
+			_finishedBlockCount = 0;
 		}
 		
-		public function init(gravity:Gravity):void
+		public function stepBlock():void
 		{
-			_gravity = gravity;
+			var keyBlockCount:uint = _keyBlockArray.length;
+			for(var i:uint=0; i<keyBlockCount; ++i)
+			{
+				// If block is moving now or became the heart, then leave it
+				if( _keyBlockArray[i].isMoving == true || 
+					_keyBlockArray[i].type == Block.TYPE_OF_BLOCK_HEART )
+				{
+					continue;
+				}
+				
+				// Get next position
+				var pos:Vector2D = getNextPosition(_keyBlockArray[i].rowIndex, _keyBlockArray[i].colIndex );
+				var coord:Array = getBlockPosition(pos.x, pos.y);
+				
+				// Move the blocks
+				_keyBlockArray[i].moveTo(coord[0], coord[1], 150);
+				
+				// Update the board and block array
+				updateStatus(pos, _keyBlockArray[i]);
+				
+				pos = null;
+				coord = null;
+			}
 		}
 		
 		public function setBlockInfo():void
@@ -66,6 +93,8 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 		
 		public function setBlockSprite(batch:BatchSprite):void
 		{
+			_batch = batch;
+			
 			var blockCount:uint = _blockArray.length;
 			var blockSize:Number = StageContext.instance.screenWidth / (_colCount + Resources.PADDING);
 			
@@ -103,31 +132,6 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 			return elements;
 		}
 		
-		public function stepBlock():void
-		{
-			var keyBlockCount:uint = _keyBlockArray.length;
-			for(var i:uint=0; i<keyBlockCount; ++i)
-			{
-				if( _keyBlockArray[i].isMoving == true )
-					continue;
-				
-				// Get next position
-				var pos:Vector2D = getNextPosition(_keyBlockArray[i].rowIndex, _keyBlockArray[i].colIndex );
-				var coord:Array = getBlockPosition(pos.x, pos.y);
-				
-				// Move the blocks
-				_keyBlockArray[i].moveTo(coord[0], coord[1], 300);
-				
-				// Update the block's row, col information
-				GameBoard.instance.boardArray[pos.x][pos.y] = Block.TYPE_OF_BLOCK_MONG;
-				_keyBlockArray[i].rowIndex = pos.x;
-				_keyBlockArray[i].colIndex = pos.y;
-				
-				pos = null;
-				coord = null;
-			}
-		}
-		
 		/**
 		 * check the gravity direction and if block can go to next positoin
 		 * and return the next position to move
@@ -142,7 +146,8 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 			var newRow:uint = row;
 			var newCol:uint = col;
 			
-			switch(_gravity.direction)
+			trace(Gravity.instance.direction);
+			switch(Gravity.instance.direction)
 			{
 				case Gravity.DIRECTION_DOWN:
 					newRow += 1;
@@ -178,10 +183,8 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 			switch(type)
 			{
 				case Block.TYPE_OF_BLOCK_EMPTY:
-					return true;
-					
 				case Block.TYPE_OF_BLOCK_OPEN_PANG:
-					trace("aa");
+				case Block.TYPE_OF_BLOCK_ANI:
 					return true;
 					
 				default:
@@ -189,6 +192,37 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 			}
 			
 			return true;
+		}
+		
+		private function updateStatus(pos:Vector2D, block:Block):void
+		{
+			GameBoard.instance.boardArray[block.rowIndex][block.colIndex] = Block.TYPE_OF_BLOCK_EMPTY;
+			
+			// If new position is where the heart is located in, then update the board with heart
+			if( GameBoard.instance.boardArray[pos.x][pos.y] == Block.TYPE_OF_BLOCK_ANI )
+			{
+				GameBoard.instance.boardArray[pos.x][pos.y] = Block.TYPE_OF_BLOCK_HEART;
+				block.type = Block.TYPE_OF_BLOCK_HEART;
+				
+				// change the ani block to heart block
+				changeImageOfBlock(block, Block.TYPE_OF_BLOCK_HEART);	
+				_finishedBlockCount++;
+				
+				// If stage is passed
+				if( _finishedBlockCount == LevelManager.instance.aniCount )
+				{
+					var mainGameLayer:MainGameLayer = SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_MAINGAME) as MainGameLayer;
+					mainGameLayer.nextLevel();
+				}
+			}
+			else
+			{
+				GameBoard.instance.boardArray[pos.x][pos.y] = Block.TYPE_OF_BLOCK_MONG;
+			}
+			
+			// Update block's row and col index
+			block.rowIndex = pos.x;
+			block.colIndex = pos.y;
 		}
 		
 		private function getBlockName(type:uint):String
@@ -204,6 +238,9 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 				case Block.TYPE_OF_BLOCK_PANG:
 				case Block.TYPE_OF_BLOCK_OPEN_PANG:
 					return Resources.NAME_PANG;
+					
+				case Block.TYPE_OF_BLOCK_HEART:
+					return Resources.NAME_ANI_HEART;
 					
 				case Block.TYPE_OF_BLOCK_EMPTY:
 					return Resources.NAME_EMPTY;
@@ -221,6 +258,14 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 				(col + Resources.PADDING*0.5) * blockSize,
 				StageContext.instance.screenHeight - blockSize * row
 			);
+		}
+		
+		private function changeImageOfBlock(block:Block, type:int):void
+		{
+			block.changeSprite(_batch, getBlockName(type)); 
+			block.depth = 100;
+			
+			_batch.sortSprites();
 		}
 		
 	}

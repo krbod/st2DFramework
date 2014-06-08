@@ -15,7 +15,7 @@ package com.stintern.st2D.tests.turnX3.maingame
 		public function processEntrance(entranceBlockArray:Vector.<Block>, isClose:Boolean):void
 		{
 			var _entranceScheduler:Scheduler = new Scheduler();
-			_entranceScheduler.addFunc(20, deadFunction, 0);  
+			_entranceScheduler.addFunc(10, deadFunction, 0);  
 			_entranceScheduler.startScheduler();	
 			
 			var alpha:Number;
@@ -33,7 +33,14 @@ package com.stintern.st2D.tests.turnX3.maingame
 						_entranceScheduler.stopScheduler();
 						_entranceScheduler = null;
 						
-						entranceBlockArray = null;
+						if( isClose )
+						{
+							processEntrance(entranceBlockArray, false);
+						}
+						else
+						{
+							entranceBlockArray = null;
+						}
 					}
 				}
 				isClose == true ? alpha -= 0.05 : alpha += 0.05;

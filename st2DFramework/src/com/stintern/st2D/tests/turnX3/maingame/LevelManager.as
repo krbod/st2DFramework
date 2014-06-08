@@ -6,12 +6,11 @@ package com.stintern.st2D.tests.turnX3.maingame
 		private static var _instance:LevelManager;
 		private static var _creatingSingleton:Boolean = false;
 		
+		private var _rowCount:uint;
+		private var _colCount:uint;
+		private var _aniCount:uint;
 		
-		private var _rowCount:uint = 13;
-		private var _colCount:uint = 10;
-		
-		private var _currentLevel:uint = 1;
-		
+		private var _currentLevel:uint;
 		private var _mapInfo:Vector.<uint> = new Vector.<uint>();
 		
 		public function LevelManager()
@@ -45,11 +44,17 @@ package com.stintern.st2D.tests.turnX3.maingame
 				0, 9, 9, 9, 9, 9, 9, 9, 9, 0,
 				0, 9, 9, 9, 9, 9, 9, 9, 9, 0,
 				0, 9, 9, 9, 9, 9, 9, 9, 9, 1,
-				1, 9, 9, 9, 9, 9, 9, 9, 9, 1,
+				0, 9, 9, 9, 9, 9, 9, 9, 9, 1,
 				1, 9, 9, 9, 9, 9, 9, 9, 9, 0,
 				0, 9, 9, 9, 9, 9, 9, 9, 9, 0,
 				0, 0, 0, 0, 0, 1, 0, 0, 0, 0 
 			);
+			
+			_currentLevel = 1;
+			_aniCount = 4;
+			
+			_rowCount = 13;
+			_colCount = 10;
 		}
 		
 		/**
@@ -90,6 +95,11 @@ package com.stintern.st2D.tests.turnX3.maingame
 		public function set currentLevel(currentLevel:uint):void
 		{
 			_currentLevel = currentLevel;
+		}
+		
+		public function get aniCount():uint
+		{
+			return _aniCount;
 		}
 	}
 }

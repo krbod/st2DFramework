@@ -1,6 +1,5 @@
 package com.stintern.st2D.utils.scheduler
 {
-    import flash.display.Sprite;
     import flash.events.TimerEvent;
     import flash.utils.Timer;
 
@@ -10,7 +9,7 @@ package com.stintern.st2D.utils.scheduler
      * @author 구현모
      * 
      */
-    public class Scheduler extends Sprite
+    public class Scheduler
     {
         
         private var _schedule:Vector.<TeskData>;

@@ -20,6 +20,7 @@ package com.stintern.st2D.tests.turnX3.utils
 		public static var NAME_BOX:String = "box";
 		public static var NAME_ARROW:String = "arrow";
 		public static var NAME_ICE_ARROW:String = "ice_arrow";
+		public static var NAME_ANI_HEART:String = "ani_heart";
 		
 		public static var NAME_OF_BOX_BUTTON:String = "BoxButton";
 		public static var NAME_OF_ARROW_BUTTON:String = "ArrowButton";

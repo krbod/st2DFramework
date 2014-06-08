@@ -22,6 +22,8 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 		public static var TYPE_OF_BLOCK_ARROW:uint = 11;
 		public static var TYPE_OF_BLOCK_ICE:uint = 12;
 		
+		public static var TYPE_OF_BLOCK_HEART:uint = 20;
+		
 		public function Block()
 		{
 		}

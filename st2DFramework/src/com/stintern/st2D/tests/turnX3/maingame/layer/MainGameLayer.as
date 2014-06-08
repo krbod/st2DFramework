@@ -36,17 +36,8 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 			
 			this.tag = Resources.LAYER_MAINGAME;
 			
-			var width:uint = StageContext.instance.screenWidth;
-			var height:uint = StageContext.instance.screenHeight;
-			
-			_camera = new Camera();
-			_camera.init(-width*0.5, -height*0.5, width, height);  
-			setCameraOfLayer(_camera);
-			
 			init();
 			initUILoader();
-			
-			StageContext.instance.stage.addEventListener(MouseEvent.CLICK, onClick);
 		}
 		
 		override public function update(dt:Number):void
@@ -68,8 +59,9 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 			_drawManager = new DrawManager();
 			_touchManager = new TouchManager();
 			
-			_gravity = new Gravity();
-			_gravity.direction = Gravity.DIRECTION_DOWN;
+			initCamera();
+			
+			Gravity.instance.direction = Gravity.DIRECTION_DOWN;
 			
 			var uiLayer:UILayer = SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_UI) as UILayer;
 			var callbacks:Vector.<Function> = new Vector.<Function>();
@@ -78,10 +70,19 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 			uiLayer.init( callbacks );
 		}
 		
+		private function initCamera():void
+		{
+			var width:uint = StageContext.instance.screenWidth;
+			var height:uint = StageContext.instance.screenHeight;
+			
+			_camera = new Camera();
+			_camera.init(-width*0.5, -height*0.5, width, height);  
+			setCameraOfLayer(_camera);
+		}
+		
 		private function initUILoader():void
 		{
 			_touchManager.init(_helperManager);
-			_blockManager.init(_gravity);
 			
 			initBlockSprites();
 		}
@@ -124,17 +125,15 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 			
 			_helperManager.setCounts(4, 0, 0);		//test
 		}
-
 		
-		private var isClicked:Boolean = false;
-		private function onClick(event:MouseEvent):void
+		public function nextLevel():void
 		{
-			if( !isClicked )
-				_drawManager.processEntrance( _blockManager.getBlockArrayByType(Block.TYPE_OF_BLOCK_OPEN_PANG), true );
-			else 
-				_drawManager.processEntrance( _blockManager.getBlockArrayByType(Block.TYPE_OF_BLOCK_OPEN_PANG), false );
 			
-			isClicked = !isClicked;
+		}
+		
+		public function openEntrance():void
+		{
+			_drawManager.processEntrance( _blockManager.getBlockArrayByType(Block.TYPE_OF_BLOCK_OPEN_PANG), true );
 		}
 		
 		public function get camera():Camera

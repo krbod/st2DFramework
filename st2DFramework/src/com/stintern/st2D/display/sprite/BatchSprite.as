@@ -103,6 +103,42 @@ package com.stintern.st2D.display.sprite
             
             _updateRequired = true;
         }
+		
+		public function sortSprites():void
+		{
+			_sprites.sort(sortingWithDepth);
+			resetBuffer();
+			
+			_updateRequired = true;
+			
+			function sortingWithDepth(lhs:Sprite, rhs:Sprite):int
+			{
+				if( lhs.depth < rhs.depth )
+				{
+					return -1;
+				}
+				else if( lhs.depth > rhs.depth )
+				{
+					return 1;
+				}
+				else
+				{
+					if( lhs.zOrder < rhs.zOrder )
+					{
+						return -1;
+					}
+					else if( lhs.zOrder > rhs.zOrder )
+					{
+						return 1;
+					}
+					else
+					{
+						return 0;
+					}
+				}
+			}
+			
+		}
         
         /**
          * 특정 스프라이트를 배치스프라이트에서 삭제합니다. 

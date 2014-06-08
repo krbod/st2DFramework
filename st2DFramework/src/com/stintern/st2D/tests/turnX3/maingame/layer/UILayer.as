@@ -1,7 +1,9 @@
 package com.stintern.st2D.tests.turnX3.maingame.layer
 {
 	import com.stintern.st2D.display.Layer;
+	import com.stintern.st2D.display.SceneManager;
 	import com.stintern.st2D.display.sprite.Sprite;
+	import com.stintern.st2D.tests.turnX3.maingame.block.Block;
 	import com.stintern.st2D.tests.turnX3.maingame.block.Helper;
 	import com.stintern.st2D.tests.turnX3.utils.Resources;
 	import com.stintern.st2D.ui.Button;
@@ -113,10 +115,12 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 			_txtArrowCount.text = ":" + arrow;
 			_txtIceCount.text = ":" + ice;
 			
-			// Make the Helper UIs invisible and the Rotation UIs visible 
+			// Make the Helper UIs invisible and the Rotation UIs visible.
+			// Open entrance.
 			if( box == 0 && arrow == 0 && ice == 0 )
 			{
 				exchangeUI();
+				openEntrance();
 			}
 		}
 		
@@ -139,6 +143,12 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 			
 			_rotateLeftSprite.setVisible(true);
 			_rotateRightSprite.setVisible(true);
+		}
+		
+		private function openEntrance():void
+		{
+			var mainGameLayer:MainGameLayer = SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_MAINGAME) as MainGameLayer;
+			mainGameLayer.openEntrance();
 		}
 		
 		public function get uiLoader():UILoader
