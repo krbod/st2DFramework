@@ -1,8 +1,9 @@
 package com.stintern.st2D.ui
 {
-    public class UIBase
+	import com.stintern.st2D.display.sprite.Base;
+
+    public class UIBase extends Base
     {
-        
         private var _callbackOnClick:Function = null;
         private var _callbackOnMouseDown:Function = null;
         private var _callbackOnMouseMove:Function = null;

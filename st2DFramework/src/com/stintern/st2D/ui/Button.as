@@ -14,14 +14,19 @@ package com.stintern.st2D.ui
     {
         private var _normalSprite:Sprite;
         private var _clickedSprite:Sprite;
+		
+		private var _buttonInfo:ButtonInfo;
+		private var _isMouseDown:Boolean;
         
         public function Button()
         {
-            
+			_buttonInfo = new ButtonInfo();
         }
         
         public function dispose():void
         {
+			_buttonInfo = null;
+			
             StageContext.instance.stage.removeEventListener(MouseEvent.CLICK, eventMouseClick);
             StageContext.instance.stage.removeEventListener(MouseEvent.MOUSE_DOWN, eventMouseDown);
             StageContext.instance.stage.removeEventListener(MouseEvent.MOUSE_UP, eventMouseUp);
@@ -56,6 +61,7 @@ package com.stintern.st2D.ui
             
             StageContext.instance.stage.addEventListener(MouseEvent.CLICK, eventMouseClick);
             StageContext.instance.stage.addEventListener(MouseEvent.MOUSE_DOWN, eventMouseDown);
+			StageContext.instance.stage.addEventListener(MouseEvent.MOUSE_MOVE, eventMouseMove);
             StageContext.instance.stage.addEventListener(MouseEvent.MOUSE_UP, eventMouseUp);
         }
         
@@ -75,7 +81,16 @@ package com.stintern.st2D.ui
         {
             if( _normalSprite.rect.containsPoint(new Point(event.stageX, StageContext.instance.screenHeight - event.stageY)) )
             {
-                callbackClick();
+				_buttonInfo.x = event.stageX;
+				_buttonInfo.y = event.stageY;
+				
+				_buttonInfo.name = this.name;
+				_buttonInfo.tag = this.tag;
+				
+				if( callbackClick != null )
+				{
+                	callbackClick(_buttonInfo);
+				}
             }
         }
         
@@ -88,20 +103,59 @@ package com.stintern.st2D.ui
                 
                 if( callbackMouseDown != null )
                 {
-                    callbackMouseDown();
+					_buttonInfo.x = event.stageX;
+					_buttonInfo.y = event.stageY;
+					
+					_buttonInfo.name = this.name;
+					_buttonInfo.tag = this.tag;
+					
+                    callbackMouseDown(_buttonInfo);
                 }
+				
+				_isMouseDown = true;
             }
         }
+		
+		public function eventMouseMove(event:MouseEvent):void
+		{
+			if( !_isMouseDown )
+				return;
+			
+			_normalSprite.isVisible = false;
+			_clickedSprite.isVisible = true;
+			
+			if( callbackMouseMove != null )
+			{
+				_buttonInfo.x = event.stageX;
+				_buttonInfo.y = event.stageY;
+				
+				_buttonInfo.name = this.name;
+				_buttonInfo.tag = this.tag;
+				
+				callbackMouseMove(_buttonInfo);
+			}
+		}
         
         public function eventMouseUp(event:MouseEvent):void
         {
+			if( !_isMouseDown )
+				return;
+			
             _normalSprite.isVisible = true;
             _clickedSprite.isVisible = false;
             
             if( callbackMouseUp != null )
             {
-                callbackMouseUp();
+				_buttonInfo.x = event.stageX;
+				_buttonInfo.y = event.stageY;
+				
+				_buttonInfo.name = this.name;
+				_buttonInfo.tag = this.tag;
+				
+                callbackMouseUp(_buttonInfo);
             }
+			
+			_isMouseDown = false;
         }
 
 		

@@ -84,6 +84,11 @@ package com.stintern.st2D.utils
             
             return slider;
         }
+		
+		public function get batchSprite():BatchSprite
+		{
+			return _batchSprite;
+		}
             
     }
 }

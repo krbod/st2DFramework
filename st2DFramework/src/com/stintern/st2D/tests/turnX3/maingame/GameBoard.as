@@ -2,19 +2,41 @@ package com.stintern.st2D.tests.turnX3.maingame
 {
 	public class GameBoard
 	{
+		// Singleton
+		private static var _instance:GameBoard;
+		private static var _creatingSingleton:Boolean = false;
+		
 		// Main game board
-		private var _boardArray:Vector.<Vector.<uint>>;	// 2 Dimension Vector
+		private var _boardArray:Vector.<Vector.<uint>> = null;	// 2 Dimension Vector
 		
 		public function GameBoard()
 		{
-			_boardArray = new Vector.<Vector.<uint>>();
+			if (!_creatingSingleton){
+				throw new Error("[GameBoard] This class is singletone. please use the instance");
+			}
 		}
+		
+		public static function get instance():GameBoard
+		{
+			if (!_instance){
+				_creatingSingleton = true;
+				_instance = new GameBoard();
+				_creatingSingleton = false;
+			}
+			return _instance;
+		}
+	
 		
 		public function setBoardAt(level:uint):void
 		{
 			var mapInfo:Vector.<uint> = LevelManager.instance.mapInfo;
 			var rowCount:uint = LevelManager.instance.rowCount;
 			var colCount:uint = LevelManager.instance.colCount;
+			
+			if( _boardArray == null )
+			{
+				_boardArray = new Vector.<Vector.<uint>>();
+			}
 			
 			for(var i:uint=0; i<rowCount; ++i)
 			{

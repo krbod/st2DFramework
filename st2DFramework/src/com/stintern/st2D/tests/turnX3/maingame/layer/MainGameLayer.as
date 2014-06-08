@@ -1,9 +1,10 @@
-package com.stintern.st2D.tests.turnX3.maingame
+package com.stintern.st2D.tests.turnX3.maingame.layer
 {
 	import com.stintern.st2D.basic.StageContext;
 	import com.stintern.st2D.display.Layer;
 	import com.stintern.st2D.display.sprite.BatchSprite;
 	import com.stintern.st2D.display.sprite.Sprite;
+	import com.stintern.st2D.tests.turnX3.TouchManager;
 	import com.stintern.st2D.tests.turnX3.maingame.block.Block;
 	import com.stintern.st2D.tests.turnX3.maingame.block.BlockManager;
 	import com.stintern.st2D.tests.turnX3.maingame.block.Helper;
@@ -14,18 +15,23 @@ package com.stintern.st2D.tests.turnX3.maingame
 	import com.stintern.st2D.utils.UILoader;
 	
 	import flash.events.MouseEvent;
+	import com.stintern.st2D.tests.turnX3.maingame.DrawManager;
+	import com.stintern.st2D.tests.turnX3.maingame.GameBoard;
+	import com.stintern.st2D.tests.turnX3.maingame.Gravity;
+	import com.stintern.st2D.tests.turnX3.maingame.LevelManager;
 	
 	public class MainGameLayer extends Layer
 	{
 		private var _uiLoader:UILoader = new UILoader(); 
 		
-		private var _gameStage:GameBoard;
 		private var _batch:BatchSprite;
 		
 		private var _blockManager:BlockManager;
 		private var _helperManager:HelperManager;
 		private var _drawManager:DrawManager;
+		private var _touchManager:TouchManager;
 		
+		private var _gravity:Gravity;
 		
 		/** UI */
 		private var _helperButton:Vector.<Button>;
@@ -38,6 +44,7 @@ package com.stintern.st2D.tests.turnX3.maingame
 		{
 			super();
 			
+			init();
 			initUILoader();
 			
 			StageContext.instance.stage.addEventListener(MouseEvent.CLICK, onClick);
@@ -45,8 +52,25 @@ package com.stintern.st2D.tests.turnX3.maingame
 		
 		override public function update(dt:Number):void
 		{
-			if( _blockManager != null )
-				_blockManager.stepBlock();
+			if( _helperManager != null )
+			{
+				if( _helperManager.allBlocksIsSetUp() )
+				{
+					_blockManager.stepBlock();
+				}
+			}
+				
+		}
+		
+		private function init():void
+		{
+			_blockManager = new BlockManager();
+			_helperManager = new HelperManager();
+			_drawManager = new DrawManager();
+			_touchManager = new TouchManager();
+			
+			_gravity = new Gravity();
+			_gravity.direction = Gravity.DIRECTION_DOWN;
 		}
 		
 		private function initUILoader():void
@@ -55,26 +79,30 @@ package com.stintern.st2D.tests.turnX3.maingame
 			
 			function onUIInited():void
 			{
-				setUI();
+				_touchManager.init(_helperManager, updateCountText);
+				_blockManager.init(_gravity);
 				
 				initBlockSprites();
+				setUI();
 			}
 		}
 		
 		private function setUI():void
 		{
-			var bkgSprite:Sprite = _uiLoader.loadSprite("bkg");
+			var bkgSprite:Sprite = _uiLoader.loadSprite(Resources.NAME_OF_BACKGROUND_IMAGE);
 			
 			_helperButton = new Vector.<Button>();
-			_helperButton.push( _uiLoader.loadButton("BoxButton", "BoxButton") );
-			_helperButton.push( _uiLoader.loadButton("ArrowButton", "ArrowButton") );
-			_helperButton.push( _uiLoader.loadButton("IceButton", "IceButton") );
+			_helperButton.push( _uiLoader.loadButton(Resources.NAME_OF_BOX_BUTTON, Resources.NAME_OF_BOX_BUTTON) );
+			_helperButton.push( _uiLoader.loadButton(Resources.NAME_OF_ARROW_BUTTON, Resources.NAME_OF_ARROW_BUTTON) );
+			_helperButton.push( _uiLoader.loadButton(Resources.NAME_OF_ICE_BUTTON, Resources.NAME_OF_ICE_BUTTON) );
 			
 			for(var i:uint=0; i<Helper.COUNT_OF_HELPER_TYPE; ++i)
 			{
-				_helperButton[i].callbackMouseDown = callbackHelperMouseDown;
-				_helperButton[i].callbackMouseMove = callbackHelperMouseMove;
-				_helperButton[i].callbackMouseUp = callbackHelperMouseUp;
+				_helperButton[i].tag = Helper.TYPE_OF_HELPER_BOX + i;
+				
+				_helperButton[i].callbackMouseDown = _touchManager.callbackHelperMouseDown;
+				_helperButton[i].callbackMouseMove = _touchManager.callbackHelperMouseMove;
+				_helperButton[i].callbackMouseUp = _touchManager.callbackHelperMouseUp;
 			}
 			
 			_txtBoxCount = _uiLoader.loadTextField("BoxCount");
@@ -90,9 +118,8 @@ package com.stintern.st2D.tests.turnX3.maingame
 			
 			function onLoaded():void
 			{
-				_blockManager = new BlockManager();
-				_helperManager = new HelperManager();
-				_drawManager = new DrawManager();
+				// helper manager need batchsprite to draw the helper block when touching the helper
+				_helperManager.setBatchSprite(_uiLoader.batchSprite);
 				
 				initBoard();
 			}
@@ -100,18 +127,16 @@ package com.stintern.st2D.tests.turnX3.maingame
 		
 		private function initBoard():void
 		{
-			_gameStage = new GameBoard();
-			
 			// get current level
 			var level:uint = 1;		// test
 			
 			LevelManager.instance.setCurrentLevel(level);
 			
 			// setting the board 
-			_gameStage.setBoardAt(level);
+			GameBoard.instance.setBoardAt(level);
 			
 			// setting the block's infomation 
-			_blockManager.setBlockInfo(_gameStage);
+			_blockManager.setBlockInfo();
 			
 			// setting the block's sprite
 			_blockManager.setBlockSprite(_batch);
@@ -119,25 +144,17 @@ package com.stintern.st2D.tests.turnX3.maingame
 			// setting the helper blocks
 			//_levelManager.getHelperBlockCount(level);
 			
-			_helperManager.setCounts(3, 0, 0);		//test
-			_txtBoxCount.text = ":3";
+			_helperManager.setCounts(4, 0, 0);		//test
+			_txtBoxCount.text = ":4";
 			_txtArrowCount.text = ":0";
 			_txtIceCount.text = ":0";
 		}
-		
-		private function callbackHelperMouseDown():void
+
+		private function updateCountText():void
 		{
-			
-		}
-		
-		private function callbackHelperMouseMove():void
-		{
-			
-		}
-		
-		private function callbackHelperMouseUp():void
-		{
-			
+			_txtBoxCount.text = ":" + _helperManager.boxCount.toString();
+			_txtArrowCount.text = ":" + _helperManager.arrowCount.toString();
+			_txtIceCount.text = ":" + _helperManager.iceCount.toString();
 		}
 		
 		private var isClicked:Boolean = false;

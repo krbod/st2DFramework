@@ -18,6 +18,10 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 		
 		public static var TYPE_OF_BLOCK_EMPTY:uint = 9;
 		
+		public static var TYPE_OF_BLOCK_BOX:uint = 10;
+		public static var TYPE_OF_BLOCK_ARROW:uint = 11;
+		public static var TYPE_OF_BLOCK_ICE:uint = 12;
+		
 		public function Block()
 		{
 		}

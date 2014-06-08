@@ -4,7 +4,7 @@ package com.stintern.st2D
     import com.stintern.st2D.display.DrawManager;
     import com.stintern.st2D.display.Scene;
     import com.stintern.st2D.display.SceneManager;
-    import com.stintern.st2D.tests.turnX3.maingame.MainGameLayer;
+    import com.stintern.st2D.tests.turnX3.maingame.layer.MainGameLayer;
     import com.stintern.st2D.utils.GameStatus;
     import com.stintern.st2D.utils.GameTimer;
     

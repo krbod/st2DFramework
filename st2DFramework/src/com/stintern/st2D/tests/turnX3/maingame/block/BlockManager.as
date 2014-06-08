@@ -3,8 +3,10 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 	import com.stintern.st2D.basic.StageContext;
 	import com.stintern.st2D.display.sprite.BatchSprite;
 	import com.stintern.st2D.tests.turnX3.maingame.GameBoard;
+	import com.stintern.st2D.tests.turnX3.maingame.Gravity;
 	import com.stintern.st2D.tests.turnX3.maingame.LevelManager;
 	import com.stintern.st2D.tests.turnX3.utils.Resources;
+	import com.stintern.st2D.utils.Vector2D;
 	
 	public class BlockManager
 	{
@@ -14,15 +16,20 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 		private var _rowCount:uint;
 		private var _colCount:uint;
 		
-		private var PADDING:uint = 2;	
+		private var _gravity:Gravity;
 		
 		public function BlockManager()
 		{
 		}
 		
-		public function setBlockInfo(board:GameBoard):void
+		public function init(gravity:Gravity):void
 		{
-			var boardArray:Vector.<Vector.<uint>> = board.boardArray;
+			_gravity = gravity;
+		}
+		
+		public function setBlockInfo():void
+		{
+			var boardArray:Vector.<Vector.<uint>> = GameBoard.instance.boardArray;
 			_rowCount = LevelManager.instance.rowCount;
 			_colCount = LevelManager.instance.colCount;
 			
@@ -60,7 +67,7 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 		public function setBlockSprite(batch:BatchSprite):void
 		{
 			var blockCount:uint = _blockArray.length;
-			var blockSize:Number = StageContext.instance.screenWidth / (_colCount + PADDING);
+			var blockSize:Number = StageContext.instance.screenWidth / (_colCount + Resources.PADDING);
 			
 			for(var i:uint=0; i<blockCount; ++i)
 			{
@@ -104,22 +111,84 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 				if( _keyBlockArray[i].isMoving == true )
 					continue;
 				
-				var row:uint = _keyBlockArray[i].rowIndex;
-				var col:uint = _keyBlockArray[i].colIndex;
-				
-				// Get current gravity direction
-				var gravityDirection:uint = 0;		// test direction is toward down
-				if( gravityDirection == 0 )
-					row += 1;
-				
-				// Check if block can be moved to next position
+				// Get next position
+				var pos:Vector2D = getNextPosition(_keyBlockArray[i].rowIndex, _keyBlockArray[i].colIndex );
+				var coord:Array = getBlockPosition(pos.x, pos.y);
 				
 				// Move the blocks
-				_keyBlockArray[i].moveBy(0, -45, 500);
+				_keyBlockArray[i].moveTo(coord[0], coord[1], 300);
 				
 				// Update the block's row, col information
+				GameBoard.instance.boardArray[pos.x][pos.y] = Block.TYPE_OF_BLOCK_MONG;
+				_keyBlockArray[i].rowIndex = pos.x;
+				_keyBlockArray[i].colIndex = pos.y;
 				
+				pos = null;
+				coord = null;
 			}
+		}
+		
+		/**
+		 * check the gravity direction and if block can go to next positoin
+		 * and return the next position to move
+		 *  
+		 * @param row current block's row index
+		 * @param col current block's col index
+		 * @return vector2D object including row and col
+		 */
+		private function getNextPosition(row:uint, col:uint):Vector2D
+		{
+			// Get current gravity direction
+			var newRow:uint = row;
+			var newCol:uint = col;
+			
+			switch(_gravity.direction)
+			{
+				case Gravity.DIRECTION_DOWN:
+					newRow += 1;
+					break;
+				
+				case Gravity.DIRECTION_UP:
+					newRow -= 1;
+					break;
+				
+				case Gravity.DIRECTION_LEFT:
+					newCol -= 1;
+					break;
+				
+				case Gravity.DIRECTION_RIGHT:
+					newCol += 1;
+					break;
+			}
+			
+			// Check if block can be moved to next position
+			if( verifyNewPosition(newRow, newCol) )
+			{
+				return new Vector2D(newRow, newCol);
+			}
+			else
+			{
+				return new Vector2D(row, col);
+			}
+		}
+		
+		private function verifyNewPosition(row:uint, col:uint):Boolean
+		{
+			var type:uint = GameBoard.instance.boardArray[row][col];
+			switch(type)
+			{
+				case Block.TYPE_OF_BLOCK_EMPTY:
+					return true;
+					
+				case Block.TYPE_OF_BLOCK_OPEN_PANG:
+					trace("aa");
+					return true;
+					
+				default:
+					return false;
+			}
+			
+			return true;
 		}
 		
 		private function getBlockName(type:uint):String
@@ -146,10 +215,10 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 		
 		private function getBlockPosition(row:uint, col:uint):Array
 		{
-			var blockSize:Number = StageContext.instance.screenWidth / (_colCount + PADDING);
+			var blockSize:Number = StageContext.instance.screenWidth / (_colCount + Resources.PADDING);
 			
 			return new Array(
-				(col + 1) * blockSize,
+				(col + Resources.PADDING*0.5) * blockSize,
 				StageContext.instance.screenHeight - blockSize * row
 			);
 		}
