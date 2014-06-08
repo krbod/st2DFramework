@@ -5,6 +5,7 @@ package com.stintern.st2D
     import com.stintern.st2D.display.Scene;
     import com.stintern.st2D.display.SceneManager;
     import com.stintern.st2D.tests.turnX3.maingame.layer.MainGameLayer;
+    import com.stintern.st2D.tests.turnX3.maingame.layer.UILayer;
     import com.stintern.st2D.utils.GameStatus;
     import com.stintern.st2D.utils.GameTimer;
     
@@ -34,11 +35,14 @@ package com.stintern.st2D
         private function onInited():void
         {
             var scene:Scene = new Scene();
+			SceneManager.instance.pushScene(scene);
             
+			var uiLayer:UILayer = new UILayer;
+			scene.addLayer(uiLayer);
+			
             var testLayer:MainGameLayer = new MainGameLayer();
             scene.addLayer(testLayer);
             
-            SceneManager.instance.pushScene(scene);
             
             addEventListener(Event.ENTER_FRAME, enterFrame);
             

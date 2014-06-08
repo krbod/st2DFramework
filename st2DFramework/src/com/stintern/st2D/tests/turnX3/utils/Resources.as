@@ -25,6 +25,11 @@ package com.stintern.st2D.tests.turnX3.utils
 		public static var NAME_OF_BACKGROUND_IMAGE:String = "bkg";
 		
 		
+		
+		/** Layer's name in main game scene */
+		public static var LAYER_MAINGAME:uint = 0;
+		public static var LAYER_UI:uint = 1;
+		
 		public static var IMAGE_SIZE:uint = 64;
 		public static var PADDING:uint = 2;	
 	}

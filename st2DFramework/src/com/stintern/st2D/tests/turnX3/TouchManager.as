@@ -1,8 +1,10 @@
 package com.stintern.st2D.tests.turnX3
 {
 	import com.stintern.st2D.basic.StageContext;
+	import com.stintern.st2D.display.SceneManager;
 	import com.stintern.st2D.tests.turnX3.maingame.LevelManager;
 	import com.stintern.st2D.tests.turnX3.maingame.block.HelperManager;
+	import com.stintern.st2D.tests.turnX3.maingame.layer.UILayer;
 	import com.stintern.st2D.tests.turnX3.utils.Resources;
 	import com.stintern.st2D.ui.ButtonInfo;
 
@@ -10,7 +12,6 @@ package com.stintern.st2D.tests.turnX3
 	{
 		private var _isMouseDown:Boolean;
 		private var _helperManager:HelperManager;
-		private var _updateCountTextCallback:Function;
 		
 		private var _movingSpriteRow:uint, _movingSpriteCol:uint;
 		
@@ -18,10 +19,9 @@ package com.stintern.st2D.tests.turnX3
 		{
 		}
 		
-		public function init(helperManager:HelperManager, updateCountTextCallback:Function):void
+		public function init(helperManager:HelperManager):void
 		{
 			_helperManager = helperManager;
-			_updateCountTextCallback = updateCountTextCallback;
 		}
 		
 		public function callbackHelperMouseDown(buttonInfo:ButtonInfo):void
@@ -47,7 +47,6 @@ package com.stintern.st2D.tests.turnX3
 		
 		public function callbackHelperMouseUp(buttonInfo:ButtonInfo):void
 		{
-			trace( buttonInfo.tag);
 			// If realeasing position is out of board
 			
 			
@@ -55,7 +54,8 @@ package com.stintern.st2D.tests.turnX3
 			_helperManager.setupHelper(buttonInfo.tag, _movingSpriteRow, _movingSpriteCol);
 			
 			// Update the count of helper blocks
-			_updateCountTextCallback();
+			var uiLayer:UILayer = SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_UI) as UILayer;
+			uiLayer.updateCountText(_helperManager.boxCount.toString(), _helperManager.arrowCount.toString(), _helperManager.iceCount.toString());
 			
 			_isMouseDown = false;
 		}
