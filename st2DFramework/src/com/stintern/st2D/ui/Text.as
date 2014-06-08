@@ -70,6 +70,10 @@ package com.stintern.st2D.ui
             }
         }
         
+		public function setVisible(isVisible:Boolean):void
+		{
+			_textField.visible = isVisible;
+		}
         
     }
 }

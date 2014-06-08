@@ -1,12 +1,16 @@
-package com.stintern.st2D.tests.turnX3
+package com.stintern.st2D.tests.turnX3.maingame
 {
+	import com.stintern.st2D.basic.Camera;
 	import com.stintern.st2D.basic.StageContext;
 	import com.stintern.st2D.display.SceneManager;
-	import com.stintern.st2D.tests.turnX3.maingame.LevelManager;
 	import com.stintern.st2D.tests.turnX3.maingame.block.HelperManager;
+	import com.stintern.st2D.tests.turnX3.maingame.layer.MainGameLayer;
 	import com.stintern.st2D.tests.turnX3.maingame.layer.UILayer;
 	import com.stintern.st2D.tests.turnX3.utils.Resources;
 	import com.stintern.st2D.ui.ButtonInfo;
+	import com.stintern.st2D.utils.scheduler.Scheduler;
+	
+	import flash.geom.Vector3D;
 
 	public class TouchManager
 	{
@@ -14,6 +18,8 @@ package com.stintern.st2D.tests.turnX3
 		private var _helperManager:HelperManager;
 		
 		private var _movingSpriteRow:uint, _movingSpriteCol:uint;
+		
+		private var _rotateDegree:Number = 0.0;
 		
 		public function TouchManager()
 		{
@@ -55,9 +61,72 @@ package com.stintern.st2D.tests.turnX3
 			
 			// Update the count of helper blocks
 			var uiLayer:UILayer = SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_UI) as UILayer;
-			uiLayer.updateCountText(_helperManager.boxCount.toString(), _helperManager.arrowCount.toString(), _helperManager.iceCount.toString());
 			
+			uiLayer.updateCountText(_helperManager.boxCount, _helperManager.arrowCount, _helperManager.iceCount);
 			_isMouseDown = false;
+		}
+		
+		public function callbackRotateLeftClicked(buttonInfo:ButtonInfo):void
+		{
+			var scheduler:Scheduler = new Scheduler();
+			scheduler.addFunc(1000 / 180, rotateLeft, 0);
+			
+			var camera:Camera = (SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_MAINGAME) as MainGameLayer).camera;
+			var degree:Number = _rotateDegree;
+			
+			scheduler.startScheduler();
+			function rotateLeft():void
+			{
+				camera.rotate(_rotateDegree, new Vector3D(0.0, 0.0, 1.0));
+				_rotateDegree++;
+				if( _rotateDegree >= degree + 90.0 )
+				{
+					scheduler.stopScheduler();
+					scheduler = null;
+				}
+			}
+		}
+
+		public function callbackRotateRightClicked(buttonInfo:ButtonInfo):void
+		{
+			var scheduler:Scheduler = new Scheduler();
+			scheduler.addFunc(1000 / 180, rotateRight, 0);
+			
+			var camera:Camera = (SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_MAINGAME) as MainGameLayer).camera;
+			var degree:Number = _rotateDegree;
+			
+			scheduler.startScheduler();
+			function rotateRight():void
+			{
+				camera.rotate(_rotateDegree, new Vector3D(0.0, 0.0, 1.0));
+				_rotateDegree--;
+				if( _rotateDegree <= degree - 90 )
+				{
+					scheduler.stopScheduler();
+					scheduler = null;
+				}
+			}
+		}
+		
+		public function callbackRotate180Clicked(buttonInfo:ButtonInfo):void
+		{
+			var scheduler:Scheduler = new Scheduler();
+			scheduler.addFunc(1000 / 180, rotateRight, 0);
+			
+			var camera:Camera = (SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_MAINGAME) as MainGameLayer).camera;
+			var degree:Number = _rotateDegree;
+			
+			scheduler.startScheduler();
+			function rotateRight():void
+			{
+				camera.rotate(_rotateDegree, new Vector3D(0.0, 0.0, 1.0));
+				_rotateDegree++;
+				if( _rotateDegree >= degree + 180 )
+				{
+					scheduler.stopScheduler();
+					scheduler = null;
+				}
+			}
 		}
 		
 		public function getIndiceByCoord(x:Number, y:Number):Array

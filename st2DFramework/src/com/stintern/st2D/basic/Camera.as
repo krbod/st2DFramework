@@ -11,6 +11,9 @@ package com.stintern.st2D.basic
         private var _x:Number = 0.0, _y:Number = 0.0;
         private var _width:Number = 0.0, _height:Number = 0.0;
         
+		private var _degree:Number; 
+		private var _axis:Vector3D;
+		
         private var _projectionMatrix:PerspectiveMatrix3D = new PerspectiveMatrix3D();
         private var _viewMatrix:Matrix3D = new Matrix3D();
         
@@ -34,10 +37,9 @@ package com.stintern.st2D.basic
           _y = y;
           _width = width;
           _height = height;
+		  _axis = new Vector3D();
           
           _viewMatrix.appendTranslation(_x, _y, 0);
-          //_projectionMatrix.lookAtLH(new Vector3D(0.0, 0.0, 1.0), new Vector3D(0.0, 0.0, 0.0), new Vector3D(0.0, 1.0, 0.0));
-          //_projectionMatrix.perspectiveRH(width, height, 0.01, 1000);
           _projectionMatrix.orthoRH(_width, _height, Resources.MIN_DEPTH, Resources.MAX_DEPTH);
           
         }
@@ -54,9 +56,8 @@ package com.stintern.st2D.basic
         {
             _x += x;
             _y += y;
-            
-            _viewMatrix.identity();
-            _viewMatrix.appendTranslation(_x, _y, 0);
+			
+			updateCamera();
         }
         
         /**
@@ -74,9 +75,31 @@ package com.stintern.st2D.basic
             _width *= 1/scaleX;
             _height *= 1/scaleY;
             
-            _projectionMatrix.identity();
-            _projectionMatrix.orthoRH(_width, _height, Resources.MIN_DEPTH, Resources.MAX_DEPTH);
+			updateCamera();
         }
+		
+		public function rotate(degree:Number, axis:Vector3D):void
+		{
+			_degree = degree;
+			
+			_axis.x = axis.x;
+			_axis.y = axis.y;
+			_axis.z = axis.z;
+			
+			updateCamera();
+			
+			axis = null;
+		}
+			
+		
+		private function updateCamera():void
+		{
+			_viewMatrix.identity();
+			
+			_viewMatrix.appendTranslation(_x, _y, 0);
+			
+			_viewMatrix.appendRotation( _degree, _axis );
+		}
         
         public function get x():Number
         {

@@ -17,12 +17,26 @@ package com.stintern.st2D.tests.turnX3.utils
 		public static var NAME_ANI:String = "ani";
 		public static var NAME_PANG:String = "pang";
 		public static var NAME_EMPTY:String = "empty";
+		public static var NAME_BOX:String = "box";
+		public static var NAME_ARROW:String = "arrow";
+		public static var NAME_ICE_ARROW:String = "ice_arrow";
 		
 		public static var NAME_OF_BOX_BUTTON:String = "BoxButton";
 		public static var NAME_OF_ARROW_BUTTON:String = "ArrowButton";
 		public static var NAME_OF_ICE_BUTTON:String = "IceButton";
 		
+		public static var NAME_OF_ROTATE_LEFT_BUTTON:String = "RotateLeft90";
+		public static var NAME_OF_ROTATE_LEFT_BUTTON_CLICKED:String = "RotateLeft90Clicked";
+		
+		public static var NAME_OF_ROTATE_RIGHT_BUTTON:String = "RotateRight90";
+		public static var NAME_OF_ROTATE_RIGHT_BUTTON_CLICKED:String = "RotateRight90Clicked"
+			
+		public static var NAME_OF_ROTATE_180_BUTTON:String = "Rotate180";
+		public static var NAME_OF_ROTATE_180_BUTTON_CLICKED:String = "Rotate180Clicked";
+		
 		public static var NAME_OF_BACKGROUND_IMAGE:String = "bkg";
+		public static var NAME_OF_ROTATE_LEFT_IMAGE:String = "RotateLeft";
+		public static var NAME_OF_ROTATE_RIGHT_IMAGE:String = "RotateRight";
 		
 		
 		

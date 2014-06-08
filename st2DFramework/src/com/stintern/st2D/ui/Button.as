@@ -96,6 +96,12 @@ package com.stintern.st2D.ui
         
         public function eventMouseDown(event:MouseEvent):void
         {
+			// If button is on invisible state, Mouse event isn't occured.
+			if( _normalSprite.isVisible == false )
+			{
+				return;
+			}
+			
             if( _normalSprite.rect.containsPoint(new Point(event.stageX, StageContext.instance.screenHeight - event.stageY)) )
             {
                 _normalSprite.isVisible = false;
@@ -158,6 +164,18 @@ package com.stintern.st2D.ui
 			_isMouseDown = false;
         }
 
+		public function setVisible(isVisible:Boolean):void
+		{
+			if( isVisible )
+			{
+				_normalSprite.isVisible = true;
+			}
+			else
+			{
+				_normalSprite.isVisible = false;
+			}
+			
+		}
 		
     }
 }

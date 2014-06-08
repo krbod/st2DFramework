@@ -1,14 +1,15 @@
 package com.stintern.st2D.tests.turnX3.maingame.layer
 {
+	import com.stintern.st2D.basic.Camera;
 	import com.stintern.st2D.basic.StageContext;
 	import com.stintern.st2D.display.Layer;
 	import com.stintern.st2D.display.SceneManager;
 	import com.stintern.st2D.display.sprite.BatchSprite;
-	import com.stintern.st2D.tests.turnX3.TouchManager;
 	import com.stintern.st2D.tests.turnX3.maingame.DrawManager;
 	import com.stintern.st2D.tests.turnX3.maingame.GameBoard;
 	import com.stintern.st2D.tests.turnX3.maingame.Gravity;
 	import com.stintern.st2D.tests.turnX3.maingame.LevelManager;
+	import com.stintern.st2D.tests.turnX3.maingame.TouchManager;
 	import com.stintern.st2D.tests.turnX3.maingame.block.Block;
 	import com.stintern.st2D.tests.turnX3.maingame.block.BlockManager;
 	import com.stintern.st2D.tests.turnX3.maingame.block.HelperManager;
@@ -27,11 +28,20 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 		
 		private var _gravity:Gravity;
 		
+		private var _camera:Camera;
+		
 		public function MainGameLayer()
 		{
 			super();
 			
 			this.tag = Resources.LAYER_MAINGAME;
+			
+			var width:uint = StageContext.instance.screenWidth;
+			var height:uint = StageContext.instance.screenHeight;
+			
+			_camera = new Camera();
+			_camera.init(-width*0.5, -height*0.5, width, height);  
+			setCameraOfLayer(_camera);
 			
 			init();
 			initUILoader();
@@ -62,7 +72,10 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 			_gravity.direction = Gravity.DIRECTION_DOWN;
 			
 			var uiLayer:UILayer = SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_UI) as UILayer;
-			uiLayer.init(_touchManager.callbackHelperMouseDown, _touchManager.callbackHelperMouseMove, _touchManager.callbackHelperMouseUp );
+			var callbacks:Vector.<Function> = new Vector.<Function>();
+			callbacks.push(_touchManager.callbackHelperMouseDown, _touchManager.callbackHelperMouseMove, _touchManager.callbackHelperMouseUp );
+			callbacks.push(_touchManager.callbackRotateLeftClicked, _touchManager.callbackRotateRightClicked, _touchManager.callbackRotate180Clicked );
+			uiLayer.init( callbacks );
 		}
 		
 		private function initUILoader():void
@@ -83,7 +96,8 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 			{
 				// helper manager need batchsprite to draw the helper block when touching the helper
 				var uiLayer:UILayer = SceneManager.instance.getCurrentScene().getLayerByTag(Resources.LAYER_UI) as UILayer;
-				_helperManager.setBatchSprite(uiLayer.uiLoader.batchSprite);
+				_helperManager.setUIBatchSprite(uiLayer.uiLoader.batchSprite);
+				_helperManager.setMainGameBatchSprite(_batch);
 				
 				initBoard();
 			}
@@ -111,7 +125,6 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 			_helperManager.setCounts(4, 0, 0);		//test
 		}
 
-
 		
 		private var isClicked:Boolean = false;
 		private function onClick(event:MouseEvent):void
@@ -124,5 +137,9 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 			isClicked = !isClicked;
 		}
 		
+		public function get camera():Camera
+		{
+			return _camera;
+		}
 	}
 }

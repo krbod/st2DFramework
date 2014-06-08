@@ -12,7 +12,8 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 		private var _iceCount:uint;
 
 		private var _movingSprite:Sprite;
-		private var _batch:BatchSprite;
+		private var _UIbatch:BatchSprite;
+		private var _mainGameBatch:BatchSprite;
 		
 		private var _helperArray:Vector.<Sprite>;
 		
@@ -31,20 +32,20 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 				switch( tag )
 				{
 					case Helper.TYPE_OF_HELPER_BOX:
-						sprite.createSpriteWithBatchSprite(_batch, Resources.NAME_OF_BOX_BUTTON);
+						sprite.createSpriteWithBatchSprite(_mainGameBatch, Resources.NAME_BOX);
 						break;
 					
 					case Helper.TYPE_OF_HELPER_ARROW:
-						sprite.createSpriteWithBatchSprite(_batch, Resources.NAME_OF_ARROW_BUTTON);
+						sprite.createSpriteWithBatchSprite(_mainGameBatch, Resources.NAME_ARROW);
 						break;
 					
 					case Helper.TYPE_OF_HELPER_ICE:
-						sprite.createSpriteWithBatchSprite(_batch, Resources.NAME_OF_ICE_BUTTON);
+						sprite.createSpriteWithBatchSprite(_mainGameBatch, Resources.NAME_ICE_ARROW);
 						break;
 				}
 				
 				sprite.tag = tag;
-				_batch.addSprite(sprite);
+				_mainGameBatch.addSprite(sprite);
 				
 				_movingSprite = sprite;
 				_movingSprite.setAnchorPoint(0, 1);
@@ -126,9 +127,14 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 			return _iceCount;
 		}
 		
-		public function setBatchSprite(batch:BatchSprite):void
+		public function setUIBatchSprite(batch:BatchSprite):void
 		{
-			_batch = batch;	
+			_UIbatch = batch;	
+		}
+		
+		public function setMainGameBatchSprite(batch:BatchSprite):void
+		{
+			_mainGameBatch = batch;
 		}
 	}
 }
