@@ -56,5 +56,22 @@ package com.stintern.st2D.tests.turnX3.maingame
 			return _boardArray;
 		}
 		
+		public function exchangeBoardValue(from:uint, to:uint):void
+		{
+			var rowCount:uint = LevelManager.instance.rowCount;
+			var colCount:uint = LevelManager.instance.colCount;
+			
+			for(var i:uint=0; i<rowCount; ++i)
+			{
+				for(var j:uint=0; j<colCount; ++j)
+				{
+					if( _boardArray[i][j] == from )
+					{
+						_boardArray[i][j] = to;
+					}
+				}
+			}
+		}
+		
 	}
 }

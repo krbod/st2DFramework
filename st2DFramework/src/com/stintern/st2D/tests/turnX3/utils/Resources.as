@@ -4,12 +4,12 @@ package com.stintern.st2D.tests.turnX3.utils
 	{
 		/** images */
 		public static var IMAGE_BLOCK_SPRITE_SHEET:String = "res/turnX3/blocks.png";
-		public static var IMAGE_GAME_LAYER_SHEET:String = "res/turnX3/gameLayer.png";
+		public static var IMAGE_GAME_LAYER_SHEET:String = "res/turnX3/gameLayer2.png";
 		
 		
 		/** XMLs */
 		public static var XML_BLOCK_SPRITE_SHEET:String = "res/turnX3/blocks.xml";
-		public static var XML_GAME_LAYER_SHEET:String = "res/turnX3/gameLayer.xml";
+		public static var XML_GAME_LAYER_SHEET:String = "res/turnX3/gameLayer2.xml";
 		
 		
 		/** item's name in sprite sheet */

@@ -79,7 +79,7 @@ package com.stintern.st2D.ui
         
         public function eventMouseClick(event:MouseEvent):void
         {
-            if( _normalSprite.rect.containsPoint(new Point(event.stageX, StageContext.instance.screenHeight - event.stageY)) )
+            if( _normalSprite.rect.containsPoint(new Point(event.stageX, (StageContext.instance.screenHeight - event.stageY)) ))
             {
 				_buttonInfo.x = event.stageX;
 				_buttonInfo.y = event.stageY;

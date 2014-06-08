@@ -1,6 +1,7 @@
 package com.stintern.st2D.tests.turnX3.maingame
 {
 	import com.stintern.st2D.tests.turnX3.maingame.block.Block;
+	import com.stintern.st2D.tests.turnX3.utils.Resources;
 	import com.stintern.st2D.utils.scheduler.Scheduler;
 	
 	import flash.events.Event;
@@ -27,6 +28,7 @@ package com.stintern.st2D.tests.turnX3.maingame
 				for(var i:uint=0; i<entranceBlockCount; ++i)
 				{
 					entranceBlockArray[i].setAlpha( alpha );
+					//entranceBlockArray[i].type = Block.TYPE_OF_BLOCK_PANG;
 					
 					if( (alpha < 0.0 || alpha > 1.0 ) && i == entranceBlockCount-1 )
 					{
@@ -39,6 +41,7 @@ package com.stintern.st2D.tests.turnX3.maingame
 						}
 						else
 						{
+							//GameBoard.instance.exchangeBoardValue(Block.TYPE_OF_BLOCK_OPEN_PANG, Block.TYPE_OF_BLOCK_PANG);
 							entranceBlockArray = null;
 						}
 					}

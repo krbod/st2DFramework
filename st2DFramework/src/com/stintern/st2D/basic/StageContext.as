@@ -69,8 +69,11 @@ package com.stintern.st2D.basic
             stage.stage3Ds[0].addEventListener(Event.CONTEXT3D_CREATE, onContext3DCreate);
             stage.stage3Ds[0].requestContext3D();
             
-            _screenWidth = stage.fullScreenWidth;
-            _screenHeight = stage.fullScreenHeight;
+//            _screenWidth = stage.fullScreenWidth;
+//            _screenHeight = stage.fullScreenHeight;
+			
+			_screenWidth = 768;
+            _screenHeight = 1024;
                 
             function onContext3DCreate(event:Event):void 
             {

@@ -4,14 +4,10 @@ package com.stintern.st2D
     import com.stintern.st2D.display.DrawManager;
     import com.stintern.st2D.display.Scene;
     import com.stintern.st2D.display.SceneManager;
-    import com.stintern.st2D.tests.turnX3.maingame.layer.MainGameLayer;
-    import com.stintern.st2D.tests.turnX3.maingame.layer.UILayer;
     import com.stintern.st2D.tests.ui.UITestLayer;
-    import com.stintern.st2D.utils.GameStatus;
     import com.stintern.st2D.utils.GameTimer;
     
     import flash.display.Sprite;
-    import flash.display.StageOrientation;
     import flash.events.Event;
     import flash.events.StageOrientationEvent;
     
@@ -26,7 +22,7 @@ package com.stintern.st2D
             
             StageContext.instance.init(stage, onInited);
             stage.addEventListener(Event.DEACTIVATE, deactivate);
-            stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, orientationChanging);
+            //stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, orientationChanging);
         }
         
         /**
@@ -80,9 +76,9 @@ package com.stintern.st2D
         }
         
         private function orientationChanging(e:StageOrientationEvent):void {
-            if (e.afterOrientation == StageOrientation.DEFAULT || e.afterOrientation == StageOrientation.UPSIDE_DOWN) {
-                e.preventDefault();
-            }
+//            if (e.afterOrientation == StageOrientation.DEFAULT || e.afterOrientation == StageOrientation.UPSIDE_DOWN) {
+//                e.preventDefault();
+//            }
         }
     }
 }

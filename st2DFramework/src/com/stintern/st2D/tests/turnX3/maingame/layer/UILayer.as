@@ -3,7 +3,6 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 	import com.stintern.st2D.display.Layer;
 	import com.stintern.st2D.display.SceneManager;
 	import com.stintern.st2D.display.sprite.Sprite;
-	import com.stintern.st2D.tests.turnX3.maingame.block.Block;
 	import com.stintern.st2D.tests.turnX3.maingame.block.Helper;
 	import com.stintern.st2D.tests.turnX3.utils.Resources;
 	import com.stintern.st2D.ui.Button;

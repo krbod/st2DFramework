@@ -15,8 +15,6 @@ package com.stintern.st2D.tests.turnX3.maingame.layer
 	import com.stintern.st2D.tests.turnX3.maingame.block.HelperManager;
 	import com.stintern.st2D.tests.turnX3.utils.Resources;
 	
-	import flash.events.MouseEvent;
-	
 	public class MainGameLayer extends Layer
 	{
 		private var _batch:BatchSprite;

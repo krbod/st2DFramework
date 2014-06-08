@@ -134,6 +134,13 @@ package com.stintern.st2D.ui
         
         public function eventMouseDown(event:MouseEvent):void
         {
+			var scaleX:Number = 768 / StageContext.instance.screenWidth;
+			var scaleY:Number = 1024 / StageContext.instance.screenHeight;
+			trace( event.stageX * scaleX );
+			trace( ( StageContext.instance.screenHeight - event.stageY ) );
+			
+			trace(_buttonSprite.rect);
+			
             if( _buttonSprite.rect.containsPoint(new Point(event.stageX, StageContext.instance.screenHeight - event.stageY)) )
             {
                 _isMoving = true;

@@ -42,6 +42,7 @@ package com.stintern.st2D.tests.ui
         private function loadComplete():void
         {
             var bkgSprite:Sprite = _uiLoader.loadSprite("bkg");
+			
             var button:Button = _uiLoader.loadButton("startButton", "startButtonClicked", onStartClick);
             
             var animation:SpriteAnimation = _uiLoader.loadAnimation("mole");
@@ -70,6 +71,8 @@ package com.stintern.st2D.tests.ui
 			
             var testLayer:MainGameLayer = new MainGameLayer();
             scene.addLayer(testLayer);
+			
+			_text.setVisible(false);
         }
         
         private function callbackSliderMove():void
