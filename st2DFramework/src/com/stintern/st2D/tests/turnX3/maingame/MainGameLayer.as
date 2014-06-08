@@ -1,8 +1,10 @@
 package com.stintern.st2D.tests.turnX3.maingame
 {
+	import com.stintern.st2D.basic.StageContext;
 	import com.stintern.st2D.display.Layer;
 	import com.stintern.st2D.display.sprite.BatchSprite;
 	import com.stintern.st2D.display.sprite.Sprite;
+	import com.stintern.st2D.tests.turnX3.maingame.block.Block;
 	import com.stintern.st2D.tests.turnX3.maingame.block.BlockManager;
 	import com.stintern.st2D.tests.turnX3.maingame.block.Helper;
 	import com.stintern.st2D.tests.turnX3.maingame.block.HelperManager;
@@ -10,6 +12,8 @@ package com.stintern.st2D.tests.turnX3.maingame
 	import com.stintern.st2D.ui.Button;
 	import com.stintern.st2D.ui.Text;
 	import com.stintern.st2D.utils.UILoader;
+	
+	import flash.events.MouseEvent;
 	
 	public class MainGameLayer extends Layer
 	{
@@ -20,8 +24,9 @@ package com.stintern.st2D.tests.turnX3.maingame
 		
 		private var _blockManager:BlockManager;
 		private var _helperManager:HelperManager;
+		private var _drawManager:DrawManager;
 		
-
+		
 		/** UI */
 		private var _helperButton:Vector.<Button>;
 		
@@ -34,11 +39,14 @@ package com.stintern.st2D.tests.turnX3.maingame
 			super();
 			
 			initUILoader();
+			
+			StageContext.instance.stage.addEventListener(MouseEvent.CLICK, onClick);
 		}
 		
 		override public function update(dt:Number):void
 		{
-
+			if( _blockManager != null )
+				_blockManager.stepBlock();
 		}
 		
 		private function initUILoader():void
@@ -84,6 +92,7 @@ package com.stintern.st2D.tests.turnX3.maingame
 			{
 				_blockManager = new BlockManager();
 				_helperManager = new HelperManager();
+				_drawManager = new DrawManager();
 				
 				initBoard();
 			}
@@ -129,6 +138,17 @@ package com.stintern.st2D.tests.turnX3.maingame
 		private function callbackHelperMouseUp():void
 		{
 			
+		}
+		
+		private var isClicked:Boolean = false;
+		private function onClick(event:MouseEvent):void
+		{
+			if( !isClicked )
+				_drawManager.processEntrance( _blockManager.getBlockArrayByType(Block.TYPE_OF_BLOCK_OPEN_PANG), true );
+			else 
+				_drawManager.processEntrance( _blockManager.getBlockArrayByType(Block.TYPE_OF_BLOCK_OPEN_PANG), false );
+			
+			isClicked = !isClicked;
 		}
 		
 	}

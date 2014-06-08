@@ -5,7 +5,7 @@ package com.stintern.st2D.tests.turnX3.maingame
 		// Singleton
 		private static var _instance:LevelManager;
 		private static var _creatingSingleton:Boolean = false;
-
+		
 		
 		private var _rowCount:uint = 13;
 		private var _colCount:uint = 10;
@@ -37,15 +37,15 @@ package com.stintern.st2D.tests.turnX3.maingame
 			// TEST
 			_mapInfo.push(
 				9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
-				9, 9, 9, 9, 2, 2, 2, 9, 9, 9,
+				9, 9, 9, 2, 2, 2, 2, 9, 9, 9,
 				9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 8, 8, 8, 8, 8, 8, 8, 8, 0,
 				0, 9, 9, 9, 9, 9, 9, 9, 9, 0,
 				0, 9, 9, 9, 9, 9, 9, 9, 9, 0,
 				0, 9, 9, 9, 9, 9, 9, 9, 9, 0,
 				0, 9, 9, 9, 9, 9, 9, 9, 9, 0,
 				0, 9, 9, 9, 9, 9, 9, 9, 9, 1,
-				0, 9, 9, 9, 9, 9, 9, 9, 9, 1,
+				1, 9, 9, 9, 9, 9, 9, 9, 9, 1,
 				1, 9, 9, 9, 9, 9, 9, 9, 9, 0,
 				0, 9, 9, 9, 9, 9, 9, 9, 9, 0,
 				0, 0, 0, 0, 0, 1, 0, 0, 0, 0 

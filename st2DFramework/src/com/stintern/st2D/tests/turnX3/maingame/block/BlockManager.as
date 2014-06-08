@@ -5,10 +5,12 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 	import com.stintern.st2D.tests.turnX3.maingame.GameBoard;
 	import com.stintern.st2D.tests.turnX3.maingame.LevelManager;
 	import com.stintern.st2D.tests.turnX3.utils.Resources;
-
+	
 	public class BlockManager
 	{
 		private var _blockArray:Vector.<Block> = new Vector.<Block>();
+		private var _keyBlockArray:Vector.<Block> = new Vector.<Block>();
+		
 		private var _rowCount:uint;
 		private var _colCount:uint;
 		
@@ -33,6 +35,7 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 						case Block.TYPE_OF_BLOCK_ANI:
 						case Block.TYPE_OF_BLOCK_MONG:
 						case Block.TYPE_OF_BLOCK_PANG:
+						case Block.TYPE_OF_BLOCK_OPEN_PANG:
 							var block:Block = new Block();
 							block.rowIndex = i;
 							block.colIndex = j;
@@ -40,6 +43,11 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 							block.type = boardArray[i][j];
 							
 							_blockArray.push(block);
+							
+							if( block.type == Block.TYPE_OF_BLOCK_MONG )
+							{
+								_keyBlockArray.push(block);
+							}
 							break;
 						
 						case Block.TYPE_OF_BLOCK_EMPTY:
@@ -67,8 +75,50 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 				_blockArray[i].setAnchorPoint(0.0, 1.0);
 				_blockArray[i].scale.x = blockSize/Resources.IMAGE_SIZE;
 				_blockArray[i].scale.y = blockSize/Resources.IMAGE_SIZE;
-					
+				
 				batch.addSprite(_blockArray[i]);
+			}
+		}
+		
+		public function getBlockArrayByType(type:uint):Vector.<Block>
+		{
+			var elements:Vector.<Block> = new Vector.<Block>();
+			
+			var blockCount:uint = _blockArray.length;
+			for(var i:uint=0; i<blockCount; ++i)
+			{
+				if( _blockArray[i].type == type )
+				{
+					elements.push(_blockArray[i]);
+				}
+			}
+			
+			return elements;
+		}
+		
+		public function stepBlock():void
+		{
+			var keyBlockCount:uint = _keyBlockArray.length;
+			for(var i:uint=0; i<keyBlockCount; ++i)
+			{
+				if( _keyBlockArray[i].isMoving == true )
+					continue;
+				
+				var row:uint = _keyBlockArray[i].rowIndex;
+				var col:uint = _keyBlockArray[i].colIndex;
+				
+				// Get current gravity direction
+				var gravityDirection:uint = 0;		// test direction is toward down
+				if( gravityDirection == 0 )
+					row += 1;
+				
+				// Check if block can be moved to next position
+				
+				// Move the blocks
+				_keyBlockArray[i].moveBy(0, -45, 500);
+				
+				// Update the block's row, col information
+				
 			}
 		}
 		
@@ -83,6 +133,7 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 					return Resources.NAME_MONGYI;
 					
 				case Block.TYPE_OF_BLOCK_PANG:
+				case Block.TYPE_OF_BLOCK_OPEN_PANG:
 					return Resources.NAME_PANG;
 					
 				case Block.TYPE_OF_BLOCK_EMPTY:
@@ -92,7 +143,7 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 					return "";
 			}
 		}
-			
+		
 		private function getBlockPosition(row:uint, col:uint):Array
 		{
 			var blockSize:Number = StageContext.instance.screenWidth / (_colCount + PADDING);
@@ -100,8 +151,8 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 			return new Array(
 				(col + 1) * blockSize,
 				StageContext.instance.screenHeight - blockSize * row
-				);
+			);
 		}
-			
+		
 	}
 }

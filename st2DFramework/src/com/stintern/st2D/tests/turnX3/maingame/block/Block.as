@@ -14,6 +14,8 @@ package com.stintern.st2D.tests.turnX3.maingame.block
 		public static var TYPE_OF_BLOCK_ANI:uint = 1;
 		public static var TYPE_OF_BLOCK_MONG:uint = 2;
 		
+		public static var TYPE_OF_BLOCK_OPEN_PANG:uint = 8;
+		
 		public static var TYPE_OF_BLOCK_EMPTY:uint = 9;
 		
 		public function Block()
